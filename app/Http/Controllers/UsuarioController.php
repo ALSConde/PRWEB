@@ -27,51 +27,21 @@ class UsuarioController extends Controller
         ]);
     }
 
-    //listar usuarios
-    public function listar()
+    //Incluir usuarios
+    public function incluir()
     {
-        return ;
-    }
-
-    //criar usuarios
-    public function criarUsuario()
-    {
-        return 'Criando usuarios';
-    }
-
-    //inserir usuarios
-    public function inserir()
-    {
-        return 'Inserindo usuarios';
-    }
-
-    //mostrar usuarios
-    public function mostrar()
-    {
-        return 'Mostrando usuarios';
+        return view('pages.usuario.incluir');
     }
 
     //alterar usuarios
     public function alterar()
     {
-        return 'Alterando usuarios';
+        return view('pages.usuario.alterar');
     }
 
-    //deletar usuarios
-    public function deletar()
-    {
-        return 'Deletando usuarios';
-    }
-
-    //excluir usuarios
+    //Excluir usuarios
     public function excluir()
     {
-        return 'Excluindo usuarios';
-    }
-
-    //consultar usuarios
-    public function consultar()
-    {
-        return 'Consultando usuarios';
+        return view('pages.usuario.excluir');
     }
 }

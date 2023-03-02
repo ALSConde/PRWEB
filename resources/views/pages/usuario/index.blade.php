@@ -5,10 +5,10 @@
 @section('content')
     <div class="container">
         <div class="container">
-            {{-- mensagem --}}
+            {{-- pesquisa --}}
         </div>
         <div class="container">
-            pesquisa
+            {{-- mensagem --}}
         </div>
         <div class="container">
             <div class="tile">
@@ -36,7 +36,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <a class="btn btn-sucess btn-lg" href="{{ url('/usuario/incluir') }}">
+                    <a class="btn btn-success btn-lg" href="{{ url('/usuario/incluir') }}">
                         <i class="fa fa-plus-circle">Incluir novos usuários</i></a>
                 </div>
             </div>

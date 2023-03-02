@@ -23,13 +23,7 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
 
 Route::get('/usuario/listar', [UsuarioController::class, 'index']);
-Route::get('/usuario/criarUsuario', [UsuarioController::class, 'criarUsuario']);
-Route::post('/usuario/inserir', [UsuarioController::class, 'inserir']);
-
-Route::get('/usuario/mostrar', [UsuarioController::class, 'mostrar']);
-Route::post('/usuario/alterar', [UsuarioController::class, 'alterar']);
-
-Route::get('/usuario/deletar', [UsuarioController::class, 'deletar']);
-Route::post('/usuario/excluir', [UsuarioController::class, 'excluir']);
-
-Route::get('/usuario/consultar', [UsuarioController::class, 'consultar']);
+Route::get('/usuario/incluir', [UsuarioController::class, 'incluir']);
+Route::get('/usuario/cancelar', [UsuarioController::class, 'index']);
+Route::get('/usuario/alterar', [UsuarioController::class, 'alterar']);
+Route::get('/usuario/excluir', [UsuarioController::class, 'excluir']);
