@@ -21,9 +21,12 @@ Route::get('/', function () {
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
-
-Route::get('/usuario/listar', [UsuarioController::class, 'index']);
+Route::get('/usuario/listar', [UsuarioController::class, 'index'])->name('usuarios.index');
+Route::get('/usuario', [UsuarioController::class, 'index'])->name('usuarios.index');
 Route::get('/usuario/incluir', [UsuarioController::class, 'incluir']);
+Route::post('/usuario/incluir', [UsuarioController::class, 'create']);
 Route::get('/usuario/cancelar', [UsuarioController::class, 'index']);
-Route::get('/usuario/alterar', [UsuarioController::class, 'alterar']);
-Route::get('/usuario/excluir', [UsuarioController::class, 'excluir']);
+Route::get('/usuario/alterar/{id}', [UsuarioController::class, 'alterar']);
+Route::post('/usuario/alterarUsuario/{id}', [UsuarioController::class, 'alterarUsuario']);
+Route::get('/usuario/excluir/{id}', [UsuarioController::class, 'excluir']);
+Route::post('/usuario/remover/{id}', [UsuarioController::class, 'remover'])->name('usuarios.remover');

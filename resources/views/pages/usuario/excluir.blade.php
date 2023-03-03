@@ -13,16 +13,19 @@
         <div class="container">
             <div class="tile">
                 <div class="tile.body">
-                    @csrf
-                    <button class="btn btn-primary btn-lg">
-                        <i class="fa fa-plus-circle">
-                            Excluir usuário
-                        </i>
-                    </button>
-                    <a class="btn btn-secondary btn-lg" href="{{ url('/usuario/cancelar') }}">
-                        <i class="fa fa-plus-circle">
-                            Cancelar exclusão
-                        </i></a>
+                    <form method="POST" action="{{ url('/usuario/remover/' . $usuario->id) }}">
+                        @csrf
+                        @include('pages.usuario.__form')
+                        <button class="btn btn-primary btn-lg">
+                            <i class="fa fa-trash">
+                                Excluir usuário
+                            </i>
+                        </button>
+                        <a class="btn btn-secondary btn-lg" href="{{ url('/usuario/cancelar') }}">
+                            <i class="fa fa-arrow-left">
+                                Cancelar exclusão
+                            </i></a>
+                    </form>
                 </div>
             </div>
         </div>

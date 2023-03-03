@@ -33,15 +33,53 @@ class UsuarioController extends Controller
         return view('pages.usuario.incluir');
     }
 
-    //alterar usuarios
-    public function alterar()
+    //Salvar usuarios
+    public function create(Request $request)
     {
-        return view('pages.usuario.alterar');
+        $usuario = new User();
+        $usuario->name = $request->input('name');
+        $usuario->email = $request->input('email');
+        $usuario->password = $request->input('password');
+        $usuario->save();
+
+        return redirect()->route('usuarios.index');
     }
 
-    //Excluir usuarios
-    public function excluir()
+    //view alterar usuarios
+    public function alterar($id)
     {
-        return view('pages.usuario.excluir');
+        $usuario = User::findOrFail($id);
+
+        return view('pages.usuario.alterar', [
+            'usuario' => $usuario,
+        ]);
+    }
+
+    public function alterarUsuario($id, Request $request){
+        $usuario = User::findOrFail($id);
+        $usuario->name = $request->input('name');
+        $usuario->email = $request->input('email');
+        $usuario->password = $request->input('password');
+        $usuario->save();
+
+        return redirect()->route('usuarios.index');
+    }
+
+    //view excluir usuarios
+    public function excluir($id)
+    {
+        $usuario = User::findOrFail($id);
+
+        return view('pages.usuario.excluir', [
+            'usuario' => $usuario,
+        ]);
+    }
+
+    //excluir usuarios
+    public function remover($id)
+    {
+        $cliente = User::findOrFail($id);
+        $cliente->delete();
+        return redirect()->route('usuarios.index');
     }
 }

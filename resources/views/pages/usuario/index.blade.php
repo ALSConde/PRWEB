@@ -27,10 +27,11 @@
                                     <td style="text-align: center">{{ $register->name }}</td>
                                     <td style="text-align: center">{{ $register->email }}</td>
                                     <td>
-                                        <a class="btn btn-info btn-sm" href="{{ url('/usuario/alterar') }}"><i
+                                        <a class="btn btn-info btn-sm" href="{{ url('/usuario/alterar/' . $register->id) }}"><i
                                                 class="fa fa-pencil"></i></a>
-                                        <a class="btn btn-danger btn-sm" href="{{ url('/usuario/excluir') }}"><i
-                                                class="fa fa-pencil"></i></a>
+                                        <a class="btn btn-danger btn-sm"
+                                            href="{{ url('/usuario/excluir/' . $register->id) }}"><i
+                                                class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
