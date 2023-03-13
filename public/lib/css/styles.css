@@ -1,0 +1,31 @@
+.fileInput {
+    position: relative;
+    margin-bottom: 1.5em;
+}
+
+.fileInput input{
+    position: relative;
+    text-align: right;
+    z-index: 2;
+    cursor: pointer;
+    height: 3.5rem; /* 56px */
+    max-width: 100%;
+}
+
+.fileInput .upload{
+    position: absolute;
+    top: 1;
+    left: 3.125rem; /* 50px */
+    width: 3.75rem; /* 60px */
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    border: none;
+    padding: 1em;
+}
