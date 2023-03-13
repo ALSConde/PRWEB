@@ -22,7 +22,7 @@
                             </i>
                         </button>
                         <a class="btn btn-secondary btn-lg" href="{{ url('/usuario/cancelar') }}">
-                            <i class="fa fa-plus-circle">
+                            <i class="fa fa-arrow-left">
                                 Cancelar cadastro
                             </i></a>
                     </form>

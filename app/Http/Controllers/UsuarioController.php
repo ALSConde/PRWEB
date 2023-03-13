@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UsuarioModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -30,33 +31,47 @@ class UsuarioController extends Controller
     //Incluir usuarios
     public function incluir()
     {
-        return view('pages.usuario.incluir');
+        return view('pages.usuario.incluir'); //retorna a view incluir
     }
 
     //Salvar usuarios
-    public function create(Request $request)
+    public function create(UsuarioModel $request)
     {
-        $usuario = new User();
-        $usuario->name = $request->input('name');
-        $usuario->email = $request->input('email');
-        $usuario->password = $request->input('password');
-        $usuario->save();
+        $data = $request->all(); //pega todos os dados do formulario
 
-        return redirect()->route('usuarios.index');
+        // dd($data); //die and dump
+
+        $this->repository->create($data); //salva no banco de dados
+
+        return redirect()->route('usuarios.index'); //redireciona para a rota usuarios.index
+    }
+
+    public function buscar($id)
+    {
+        $registro = $this->repository->find($id);
+
+        if (!$registro) {
+            return redirect()->back();
+        }
+
+        return view('pages.usuario.alterar', [
+            'registro' => $registro
+        ]);
     }
 
     //view alterar usuarios
     public function alterar($id)
     {
-        $usuario = User::findOrFail($id);
+        $usuario = $this->repository->findOrFail($id);
 
         return view('pages.usuario.alterar', [
             'usuario' => $usuario,
         ]);
     }
 
-    public function alterarUsuario($id, Request $request){
-        $usuario = User::findOrFail($id);
+    public function alterarUsuario($id, Request $request)
+    {
+        $usuario = $this->repository->findOrFail($id);
         $usuario->name = $request->input('name');
         $usuario->email = $request->input('email');
         $usuario->password = $request->input('password');
@@ -68,7 +83,7 @@ class UsuarioController extends Controller
     //view excluir usuarios
     public function excluir($id)
     {
-        $usuario = User::findOrFail($id);
+        $usuario = $this->repository->findOrFail($id);
 
         return view('pages.usuario.excluir', [
             'usuario' => $usuario,
@@ -78,7 +93,7 @@ class UsuarioController extends Controller
     //excluir usuarios
     public function remover($id)
     {
-        $cliente = User::findOrFail($id);
+        $cliente = $this->repository->findOrFail($id);
         $cliente->delete();
         return redirect()->route('usuarios.index');
     }

@@ -13,7 +13,7 @@
         <div class="container">
             <div class="tile">
                 <div class="tile.body">
-                    <form action="{{ url('/usuario/alterarUsuario/' . $usuario->id) }}" method="POST">
+                    <form action="{{ url('/usuario/alterarUsuario/' . $registro->id) }}" method="POST">
                         @csrf
                         @include('pages.usuario.__form')
                         <button class="btn btn-primary btn-lg">

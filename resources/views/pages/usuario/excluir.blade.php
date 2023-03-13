@@ -16,7 +16,7 @@
                     <form method="POST" action="{{ url('/usuario/remover/' . $usuario->id) }}">
                         @csrf
                         @include('pages.usuario.__form')
-                        <button class="btn btn-primary btn-lg">
+                        <button class="btn btn-danger btn-lg">
                             <i class="fa fa-trash">
                                 Excluir usuário
                             </i>

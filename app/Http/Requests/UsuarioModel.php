@@ -13,7 +13,7 @@ class UsuarioModel extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UsuarioModel extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|max:100',
+            'email' => 'required|string|email|max:100|unique:users',
         ];
     }
 }
