@@ -13,7 +13,7 @@
         <div class="container">
             <div class="tile">
                 <div class="tile.body">
-                    <form action="{{ url('/usuario/incluir') }}" method="POST">
+                    <form action="{{ url('/usuario/incluir') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @include('pages.usuario.__form')
                         <button class="btn btn-primary btn-lg">

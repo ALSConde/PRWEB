@@ -13,7 +13,6 @@
     <link href="{{ asset('lib/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/css/styles.css') }}" rel="stylesheet">
-
 </head>
 
 <body class="app sedebar-mini rtl">
@@ -47,6 +46,7 @@
     <script src="{{ asset('lib/js/main.js') }}"></script>
     <script src="{{ asset('lib/js/plugins/pace.min.js') }}"></script>
 
+    @stack('scripts') <!-- Scripts adicionais // Cria uma pilha de scripts-->
 </body>
 
 </html>

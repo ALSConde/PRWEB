@@ -46,6 +46,17 @@ class UsuarioController extends Controller
         return redirect()->route('usuarios.index'); //redireciona para a rota usuarios.index
     }
 
+    public function uploadImage(Request $request){
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            return response()->json(['success'=>$imageName]);
+        }
+
+        return response('ERRO', 403);
+    }
+
     public function buscar($id)
     {
         $registro = $this->repository->find($id);

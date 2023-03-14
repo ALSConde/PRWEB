@@ -34,3 +34,6 @@ Route::post('/usuario/alterarUsuario/{id}', [UsuarioController::class, 'alterarU
 
 Route::get('/usuario/excluir/{id}', [UsuarioController::class, 'excluir']);
 Route::post('/usuario/remover/{id}', [UsuarioController::class, 'remover'])->name('usuarios.remover');
+
+Route::post('/usuario/upload', [UsuarioController::class, 'uploadImage'])->name('uploadImage');
+Route::get('public/images/{filename}', [UsuarioController::class, 'uploadImage'])->name('getImage');

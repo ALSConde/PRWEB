@@ -3,11 +3,12 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-column align-center text-center">
-                    <img src="{{ asset('img/user.svg') }}">
+                    <img id="image" src="{{ isset($registro->photo) ? $registro->photo : asset('img/user.svg') }}">
                     <div class="mt-3">
                         <div class="fileInput">
-                            <input type="file">
-                            <button id="upload" class="btn btn-success btn-lg upload" title="upload de fotos">
+                            <input type="file" class="mt-3" accept="image/*">
+                            <button id="upload" class="btn btn-success btn-lg upload" title="upload de fotos"
+                                type="submit">
                                 <i style="font-size: 1.875rem" class="fa fa-upload"></i>
                             </button>
                         </div>
@@ -51,3 +52,35 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        $('#upload').on('click', function(event) {
+            event.preventDefault();
+
+            let file = $('input[type=file]').get(0).files[0];
+            let __tokenCSRF = '{{ csrf_token() }}';
+            let formData = new FormData();
+            const storagePhotos = '{{ asset('images') }}';
+
+            formData.append('image', file);
+            formData.append('_token', __tokenCSRF);
+
+            $.ajax({
+                url: '{{ url('/usuario/upload') }}',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function(data) {
+                    console.log(data);
+                    $('#image').attr('src', storagePhotos + '/' + data.success);
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        })
+    </script>
+@endpush
