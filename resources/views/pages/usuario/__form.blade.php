@@ -3,13 +3,14 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-column align-center text-center">
-                    <img id="image" src="{{ isset($registro->photo) ? $registro->photo : asset('img/user.svg') }}">
+                    <img id="image" class="avatar"
+                        src="{{ isset($registro->photo) ? $registro->photo : asset('img/user.svg') }}">
                     <div class="mt-3">
                         <div class="fileInput">
-                            <input type="file" class="mt-3" accept="image/*">
                             <button id="upload" class="btn btn-success btn-lg upload" title="upload de fotos"
                                 type="submit">
-                                <i style="font-size: 1.875rem" class="fa fa-upload"></i>
+                                <input type="file" accept="image/*">
+                                <i style="font-size: 1.875rem" class="fa fa-upload fa-5x"></i>
                             </button>
                         </div>
                     </div>
@@ -55,13 +56,13 @@
 
 @push('scripts')
     <script>
-        $('#upload').on('click', function(event) {
+        $('#upload').on('submit', function(event) {
             event.preventDefault();
 
             let file = $('input[type=file]').get(0).files[0];
             let __tokenCSRF = '{{ csrf_token() }}';
             let formData = new FormData();
-            const storagePhotos = '{{ asset('images') }}';
+            const storagePhotos = '{{ asset('storage/images') }}';
 
             formData.append('image', file);
             formData.append('_token', __tokenCSRF);

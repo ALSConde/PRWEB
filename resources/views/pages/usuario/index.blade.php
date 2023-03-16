@@ -8,7 +8,7 @@
             {{-- pesquisa --}}
         </div>
         <div class="container">
-            {{-- mensagem --}}
+            @include('layout.alert')
         </div>
         <div class="container">
             <div class="tile">

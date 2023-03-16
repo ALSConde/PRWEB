@@ -3,29 +3,39 @@
     margin-bottom: 1.5em;
 }
 
-.fileInput input{
-    position: relative;
-    text-align: right;
-    z-index: 2;
+.fileInput input[type="file"]{
+    position: absolute;
     cursor: pointer;
-    height: 3.5rem; /* 56px */
-    max-width: 100%;
+    left: 0;
+    top : 0.0625rem;
+    transform: scale(3);
+    opacity: 0;
+    z-index: 1;
 }
 
 .fileInput .upload{
     position: absolute;
-    top: 1;
-    left: 3.125rem; /* 50px */
-    width: 3.75rem; /* 60px */
+    top: 0px;
+    left: 0;
+    width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #ffff;
-    font-size: 1.1rem;
+    font-size: 20px;
     cursor: pointer;
     border-radius: 0.25rem;
     border: none;
     padding: 1em;
+}
+
+.avatar
+{
+    width: 100%;
+    display: block;
+    border-radius: 50%;
+    height: auto;
+    margin: 0 auto;
 }

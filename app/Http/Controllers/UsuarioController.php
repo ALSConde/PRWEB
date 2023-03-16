@@ -24,7 +24,7 @@ class UsuarioController extends Controller
         $registers = $this->repository->all();
 
         return view('pages.usuario.index', [
-            'registers' => $registers
+            'registers' => $registers,
         ]);
     }
 
@@ -43,15 +43,16 @@ class UsuarioController extends Controller
 
         $this->repository->create($data); //salva no banco de dados
 
-        return redirect()->route('usuarios.index'); //redireciona para a rota usuarios.index
+        return redirect()->route('usuarios.index')->with('success', 'Registro cadastrado com sucesso'); //redireciona para a rota usuarios.index
     }
 
-    public function uploadImage(Request $request){
-        if($request->hasFile('image')){
+    public function uploadImage(Request $request)
+    {
+        if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('images'), $imageName);
-            return response()->json(['success'=>$imageName]);
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('storage/images'), $imageName);
+            return response()->json(['success' => $imageName]);
         }
 
         return response('ERRO', 403);
@@ -62,7 +63,7 @@ class UsuarioController extends Controller
         $registro = $this->repository->find($id);
 
         if (!$registro) {
-            return redirect()->back();
+            return redirect()->back()->with('fail', 'Registro não encontrado');
         }
 
         return view('pages.usuario.alterar', [
