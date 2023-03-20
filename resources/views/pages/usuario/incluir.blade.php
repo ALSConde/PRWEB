@@ -5,12 +5,6 @@
 @section('content')
     <div class="container">
         <div class="container">
-            {{-- pesquisa --}}
-        </div>
-        <div class="container">
-            {{-- mensagem --}}
-        </div>
-        <div class="container">
             <div class="tile">
                 <div class="tile.body">
                     <form action="{{ url('/usuario/incluir') }}" method="POST" enctype="multipart/form-data">

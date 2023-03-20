@@ -23,6 +23,8 @@ class UsuarioController extends Controller
         // $registers = user::factory()->count(10)->make();
         $registers = $this->repository->all();
 
+        // dd($registers);
+
         return view('pages.usuario.index', [
             'registers' => $registers,
         ]);
@@ -39,6 +41,14 @@ class UsuarioController extends Controller
     {
         $data = $request->all(); //pega todos os dados do formulario
 
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('storage/images'), $imageName);
+            $data['photo'] = asset('storage/images/' . $imageName);
+        } else {
+            $data['photo'] = asset('img/user.svg');
+        }
         // dd($data); //die and dump
 
         $this->repository->create($data); //salva no banco de dados
@@ -58,7 +68,7 @@ class UsuarioController extends Controller
         return response('ERRO', 403);
     }
 
-    public function buscar($id)
+    public function alterar($id)
     {
         $registro = $this->repository->find($id);
 
@@ -66,47 +76,59 @@ class UsuarioController extends Controller
             return redirect()->back()->with('fail', 'Registro não encontrado');
         }
 
+        // dd($registro);
+
         return view('pages.usuario.alterar', [
             'registro' => $registro
         ]);
     }
 
-    //view alterar usuarios
-    public function alterar($id)
+    public function update(UsuarioModel $request, $id)
     {
-        $usuario = $this->repository->findOrFail($id);
+        $registro = $request->all();
+        
+        // dd($request);
 
-        return view('pages.usuario.alterar', [
-            'usuario' => $usuario,
-        ]);
-    }
+        $data = $this->repository->find($id);
 
-    public function alterarUsuario($id, Request $request)
-    {
-        $usuario = $this->repository->findOrFail($id);
-        $usuario->name = $request->input('name');
-        $usuario->email = $request->input('email');
-        $usuario->password = $request->input('password');
-        $usuario->save();
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('storage/images'), $imageName);
+            $registro['photo'] = asset('storage/images/' . $imageName);
+        }
 
-        return redirect()->route('usuarios.index');
+        // dd($data);
+        $data->update($registro);
+
+        // dd($data);
+
+        return redirect()->route('usuarios.index')->with('success', 'Registro alterado com sucesso');
     }
 
     //view excluir usuarios
     public function excluir($id)
     {
-        $usuario = $this->repository->findOrFail($id);
+        $registro = $this->repository->findOrFail($id);
+
+        if (!$registro) {
+            return redirect()->back()->with('fail', 'Registro não encontrado');
+        }
 
         return view('pages.usuario.excluir', [
-            'usuario' => $usuario,
+            'usuario' => $registro,
         ]);
     }
 
     //excluir usuarios
-    public function remover($id)
+    public function delete(UsuarioModel $request, $id)
     {
-        $cliente = $this->repository->findOrFail($id);
-        $cliente->delete();
-        return redirect()->route('usuarios.index');
+        $registro = $request->all();
+
+        $data = $this->repository->find($id);
+
+        $data->delete($registro);
+
+        return redirect()->route('usuarios.index')->with('success', 'Registro excluido com sucesso');
     }
 }

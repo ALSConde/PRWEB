@@ -21,19 +21,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
-Route::get('/usuario/listar', [UsuarioController::class, 'index'])->name('usuarios.index');
-Route::get('/usuario', [UsuarioController::class, 'index'])->name('usuarios.index');
-Route::get('/usuario/incluir', [UsuarioController::class, 'incluir'])->name('usuarios.incluir');
-Route::post('/usuario/incluir', [UsuarioController::class, 'create'])->name('usuarios.create');
-Route::get('/usuario/cancelar', [UsuarioController::class, 'index']);
 
-Route::get('usuario/buscar/{id}', [UsuarioController::class, 'buscar'])->name('usuarios.buscar');
-
-Route::get('/usuario/alterar/{id}', [UsuarioController::class, 'alterar'])->name('usuarios.alterar');
-Route::post('/usuario/alterarUsuario/{id}', [UsuarioController::class, 'alterarUsuario']);
-
-Route::get('/usuario/excluir/{id}', [UsuarioController::class, 'excluir']);
-Route::post('/usuario/remover/{id}', [UsuarioController::class, 'remover'])->name('usuarios.remover');
+Route::prefix('usuario')->group(function () {
+    Route::get('/', [UsuarioController::class, 'index'])->name('usuarios.index');
+    Route::get('/listar', [UsuarioController::class, 'index'])->name('usuarios.index');
+    Route::get('/cancelar', [UsuarioController::class, 'index']);
+    Route::get('/incluir', [UsuarioController::class, 'incluir'])->name('usuarios.incluir');
+    Route::post('/incluir', [UsuarioController::class, 'create'])->name('usuarios.create');
+    Route::get('/alterar/{id}', [UsuarioController::class, 'alterar'])->name('usuarios.alterar');
+    Route::post('/alterar/{id}', [UsuarioController::class, 'update'])->name('usuarios.alterar');
+    Route::get('/excluir/{id}', [UsuarioController::class, 'excluir']);
+    Route::post('/delete/{id}', [UsuarioController::class, 'delete'])->name('usuarios.delete');
+});
 
 Route::post('/usuario/upload', [UsuarioController::class, 'uploadImage'])->name('uploadImage');
 Route::get('public/images/{filename}', [UsuarioController::class, 'uploadImage'])->name('getImage');

@@ -1,3 +1,4 @@
+@include('layout.validate')
 <div class="row">
     <div class="col-md-4">
         <div class="card">
@@ -6,10 +7,10 @@
                     <img id="image" class="avatar"
                         src="{{ isset($registro->photo) ? $registro->photo : asset('img/user.svg') }}">
                     <div class="mt-3">
+                        <input id="image" class="form-control" name="image" type="file" accept="image/*" >
                         <div class="fileInput">
                             <button id="upload" class="btn btn-success btn-lg upload" title="upload de fotos"
                                 type="submit">
-                                <input type="file" accept="image/*">
                                 <i style="font-size: 1.875rem" class="fa fa-upload fa-5x"></i>
                             </button>
                         </div>
@@ -56,7 +57,7 @@
 
 @push('scripts')
     <script>
-        $('#upload').on('submit', function(event) {
+        $('#upload').on('click', function(event) {
             event.preventDefault();
 
             let file = $('input[type=file]').get(0).files[0];

@@ -4,7 +4,5 @@
 <!-- construct the home page -->
 @section('content')
     <div class="container">
-
     </div>
-
 @endsection

@@ -25,7 +25,7 @@ class UsuarioModel extends FormRequest
     {
         return [
             'name' => 'required|string|max:100',
-            'email' => 'required|string|email|max:100|unique:users',
+            'email' => 'required|string|email|max:100|unique:users,email,' . $this->id,
         ];
     }
 }
