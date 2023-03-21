@@ -7,7 +7,7 @@
         <div class="container">
             <div class="tile">
                 <div class="tile.body">
-                    <form method="POST" action="{{ url('/usuario/remover/' . $usuario->id) }}">
+                    <form method="POST" action="{{ url('/usuario/delete/' . $registro->id) }}">
                         @csrf
                         @include('pages.usuario.__form')
                         <div class="row mt-5">

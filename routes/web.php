@@ -35,4 +35,3 @@ Route::prefix('usuario')->group(function () {
 });
 
 Route::post('/usuario/upload', [UsuarioController::class, 'uploadImage'])->name('uploadImage');
-Route::get('public/images/{filename}', [UsuarioController::class, 'uploadImage'])->name('getImage');

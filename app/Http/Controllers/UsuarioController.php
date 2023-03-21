@@ -3,31 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UsuarioModel;
-use App\Models\User;
+use App\Http\Services\UserService;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
     // vars
-    private $repository;
+    private $userService;
 
     // construtor
-    public function __construct(User $user)
+    public function __construct(UserService $usuarioService)
     {
-        $this->repository = $user;
+        $this->userService = $usuarioService;
     }
 
     //index usuarios
     public function index()
     {
         // $registers = user::factory()->count(10)->make();
-        $registers = $this->repository->all();
+        $registros = $this->userService->index();
+        $registros = $registros['registros'];
+        // $registros = $registros['registros']->items();
+        // dd($registros);
 
-        // dd($registers);
-
-        return view('pages.usuario.index', [
-            'registers' => $registers,
-        ]);
+        return view('pages.usuario.index', ['registros' => $registros,]);
     }
 
     //Incluir usuarios
@@ -39,21 +38,21 @@ class UsuarioController extends Controller
     //Salvar usuarios
     public function create(UsuarioModel $request)
     {
-        $data = $request->all(); //pega todos os dados do formulario
+        $registro = $request->all(); //pega todos os dados do formulario
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('storage/images'), $imageName);
-            $data['photo'] = asset('storage/images/' . $imageName);
+            $registro['photo'] = asset('storage/images/' . $imageName);
         } else {
-            $data['photo'] = asset('img/user.svg');
+            $registro['photo'] = asset('img/user.svg');
         }
         // dd($data); //die and dump
 
-        $this->repository->create($data); //salva no banco de dados
+        $data = $this->userService->create($registro); //salva no banco de dados
 
-        return redirect()->route('usuarios.index')->with('success', 'Registro cadastrado com sucesso'); //redireciona para a rota usuarios.index
+        return redirect()->route('usuarios.index')->with('success', $data['sucess']); //redireciona para a rota usuarios.index
     }
 
     public function uploadImage(Request $request)
@@ -70,26 +69,22 @@ class UsuarioController extends Controller
 
     public function alterar($id)
     {
-        $registro = $this->repository->find($id);
+        $data = $this->userService->buscar($id);
 
-        if (!$registro) {
-            return redirect()->back()->with('fail', 'Registro não encontrado');
+        if (isset($data['fail'])) {
+            return redirect()->back();
         }
 
         // dd($registro);
 
-        return view('pages.usuario.alterar', [
-            'registro' => $registro
-        ]);
+        return view('pages.usuario.alterar', ['registro' => $data['registro'],]);
     }
 
     public function update(UsuarioModel $request, $id)
     {
         $registro = $request->all();
-        
-        // dd($request);
 
-        $data = $this->repository->find($id);
+        // dd($request);
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -98,37 +93,45 @@ class UsuarioController extends Controller
             $registro['photo'] = asset('storage/images/' . $imageName);
         }
 
-        // dd($data);
-        $data->update($registro);
+        $data = $this->userService->update($registro, $id);
 
         // dd($data);
 
-        return redirect()->route('usuarios.index')->with('success', 'Registro alterado com sucesso');
+        return redirect()->route('usuarios.index')->with('success', $data['success']);
     }
 
     //view excluir usuarios
     public function excluir($id)
     {
-        $registro = $this->repository->findOrFail($id);
+        $data = $this->userService->buscar($id);
 
-        if (!$registro) {
-            return redirect()->back()->with('fail', 'Registro não encontrado');
+        if (isset($data['fail'])) {
+            return redirect()->back();
         }
 
         return view('pages.usuario.excluir', [
-            'usuario' => $registro,
+            'registro' => $data['registro'],
         ]);
     }
 
     //excluir usuarios
-    public function delete(UsuarioModel $request, $id)
+    public function delete($id)
     {
-        $registro = $request->all();
+        $data = $this->userService->delete($id);
 
-        $data = $this->repository->find($id);
+        return redirect()->route('usuarios.index')->with('success', $data['success']);
+    }
 
-        $data->delete($registro);
+    public function show($id)
+    {
+        $data = $this->userService->buscar($id);
 
-        return redirect()->route('usuarios.index')->with('success', 'Registro excluido com sucesso');
+        if (isset($data['fail'])) {
+            return redirect()->back();
+        }
+
+        return view('pages.usuario.show', [
+            'registro' => $data['registro'],
+        ]);
     }
 }
