@@ -31,19 +31,6 @@ class UserService
         return (['sucess' => 'Registro cadastrado com sucesso',]); //redireciona para a rota usuarios.index
     }
 
-    // Função para upload de imagem
-    // public function uploadImage(Request $request)
-    // {
-    //     if ($request->hasFile('image')) {
-    //         $image = $request->file('image');
-    //         $imageName = time() . '.' . $image->getClientOriginalExtension();
-    //         $image->move(public_path('storage/images'), $imageName);
-    //         return response()->json(['success' => $imageName]);
-    //     }
-
-    //     return response('ERRO', 403);
-    // }
-
     public function update($registro, $id)
     {
         $data = $this->repository->find($id);

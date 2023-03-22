@@ -17,7 +17,7 @@
                                         Alterar usuário
                                     </i>
                                 </button>
-                                <a class="btn btn-secondary btn-lg" href="{{ url('/usuario/cancelar') }}">
+                                <a id="cancelar" class="btn btn-secondary btn-lg" href="{{ url('/usuario/cancelar') }}">
                                     <i class="fa fa-arrow-left">
                                         Cancelar cadastro
                                     </i></a>
@@ -28,3 +28,37 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $('#cancelar').on('click', function(event) {
+            event.preventDefault();
+
+            let __tokenCSRF = '{{ csrf_token() }}';
+            let photoName = $('#photo').attr('src').split('/').pop(); // obter o nome do arquivo da imagem
+
+            let dados = JSON.stringify({
+                "photo": photoName,
+            });
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: '{{ url('/photo/cancel/') }}',
+                type: 'POST',
+                data: dados,
+                success: function(data) {
+                    console.log(data);
+                    window.location.href = "{{ url('/usuario/cancelar') }}";
+                },
+                error: function(data) {
+                    console.log(data);
+                    window.location.href = "{{ url('/usuario/cancelar') }}";
+                }
+            });
+        });
+    </script>
+@endpush

@@ -4,10 +4,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-column align-center text-center">
-                    <img id="image" class="avatar"
+                    <img id="photo" class="avatar"
                         src="{{ isset($registro->photo) ? $registro->photo : asset('img/user.svg') }}">
                     <div class="mt-3">
-                        <input id="image" class="form-control" name="image" type="file" accept="image/*" >
+                        <input id="photo" class="form-control" name="photo" type="file" accept="image/*">
                         <div class="fileInput">
                             <button id="upload" class="btn btn-success btn-lg upload" title="upload de fotos"
                                 type="submit">
@@ -65,11 +65,11 @@
             let formData = new FormData();
             const storagePhotos = '{{ asset('storage/images') }}';
 
-            formData.append('image', file);
+            formData.append('photo', file);
             formData.append('_token', __tokenCSRF);
 
             $.ajax({
-                url: '{{ url('/usuario/upload') }}',
+                url: '{{ url('/photo/upload') }}',
                 type: 'POST',
                 data: formData,
                 contentType: false,
@@ -77,7 +77,7 @@
                 cache: false,
                 success: function(data) {
                     console.log(data);
-                    $('#image').attr('src', storagePhotos + '/' + data.success);
+                    $('#photo').attr('src', storagePhotos + '/' + data.success);
                 },
                 error: function(data) {
                     console.log(data);

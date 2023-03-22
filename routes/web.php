@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PhotoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,4 +35,5 @@ Route::prefix('usuario')->group(function () {
     Route::post('/delete/{id}', [UsuarioController::class, 'delete'])->name('usuarios.delete');
 });
 
-Route::post('/usuario/upload', [UsuarioController::class, 'uploadImage'])->name('uploadImage');
+Route::post('/photo/upload', [PhotoController::class, 'uploadImage'])->name('uploadImage');
+Route::post('/photo/cancel', [PhotoController::class, 'removeImage'])->name('removeImage');
