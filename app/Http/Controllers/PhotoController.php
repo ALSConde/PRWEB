@@ -16,7 +16,6 @@ class PhotoController extends Controller
         $this->photoService = $photoService;
     }
 
-
     public function uploadImage(Request $request)
     {
         if($request->hasFile('photo')){

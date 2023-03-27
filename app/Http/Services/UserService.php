@@ -3,7 +3,6 @@
 namespace App\Http\Services;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class UserService
 {
@@ -16,10 +15,27 @@ class UserService
         $this->repository = $user;
     }
 
-    public function index()
+    public function index($search)
     {
-        $registros = $this->repository->paginate(5);
+        // dd($search);
+        $registros = $this->repository
+            ->where(function ($query) use ($search) {
+                if ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                    $query->orWhere('email', 'like', '%' . $search . '%');
+                }
+            })
+            ->paginate(5);
+
         // dd($registros);
+        return (['registros' => $registros,]);
+    }
+
+    public function search($search)
+    {
+        $registros = $this->repository->where('name', 'like', '%' . $search . '%')->paginate(5);
+        // dd($registros);
+
         return (['registros' => $registros,]);
     }
 
@@ -60,6 +76,4 @@ class UserService
 
         return (['success' => 'Registro excluido com sucesso',]);
     }
-
-
 }

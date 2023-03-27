@@ -5,7 +5,26 @@
 @section('content')
     <div class="container">
         <div class="container">
-            {{-- pesquisa --}}
+            <div class="tile">
+                <div class="tile.body">
+                    <form method="POST" class="form-inline" action="{{ url('/usuario/listar') }}">
+                        @csrf
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="pesquisa" class="control-label">Pesquisar:</label>
+                                <input type="text" class="form-control col-sm-5" id="pesquisa" name="pesquisa"
+                                    placeholder="Digite um dado para pesquisa">
+                                <div class="col-sm-5">
+                                    <button type="submit" class="btn btn-primary">
+                                        Pesquisar
+                                        <i class="fa fa-search-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="container">
             @include('layout.alert')

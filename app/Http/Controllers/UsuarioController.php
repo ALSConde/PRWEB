@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UsuarioModel;
 use App\Http\Services\UserService;
 use App\Http\Services\PhotoService;
+use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
@@ -20,12 +21,12 @@ class UsuarioController extends Controller
     }
 
     //index usuarios
-    public function index()
+    public function index(Request $request)
     {
-        // $registers = user::factory()->count(10)->make();
-        $registros = $this->userService->index();
-        $registros = $registros['registros'];
-        // $registros = $registros['registros']->items();
+        // dd($request->all());
+        $search = $request->all('pesquisa');
+        $data = $this->userService->index($search['pesquisa']);
+        $registros = $data['registros'];
         // dd($registros);
 
         return view('pages.usuario.index', ['registros' => $registros,]);
@@ -42,34 +43,12 @@ class UsuarioController extends Controller
     {
         $registro = $request->all(); //pega todos os dados do formulario
 
-        // if ($request->hasFile('image')) {
-        //     $image = $request->file('image');
-        //     $imageName = time() . '.' . $image->getClientOriginalExtension();
-        //     $image->move(public_path('storage/images'), $imageName);
-        //     $registro['photo'] = asset('storage/images/' . $imageName);
-        // } else {
-        //     $registro['photo'] = asset('img/user.svg');
-        // }
-        // dd($data); //die and dump
-
         $registro['photo'] = $this->photoService->saveImage($request->file('photo'));
         // dd($registro);
         $data = $this->userService->create($registro); //salva no banco de dados
 
         return redirect()->route('usuarios.index')->with('success', $data['sucess']); //redireciona para a rota usuarios.index
     }
-
-    // public function uploadImage(Request $request)
-    // {
-    //     if ($request->hasFile('image')) {
-    //         $image = $request->file('image');
-    //         $imageName = time() . '.' . $image->getClientOriginalExtension();
-    //         $image->move(public_path('storage/images'), $imageName);
-    //         return response()->json(['success' => $imageName]);
-    //     }
-
-    //     return response('ERRO', 403);
-    // }
 
     public function alterar($id)
     {
