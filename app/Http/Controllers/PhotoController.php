@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\PhotoService;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class PhotoController extends Controller
@@ -27,12 +26,19 @@ class PhotoController extends Controller
     public function removeImage(Request $photoName)
     {
         $data = json_decode($photoName->getContent(), true);
-        // $photoName->only('photoName');
-        $photoPath = strval($data['photoName']);
-        // return response()->json(['teste' => $photoPath]);
-        if ($photoPath != null) {
-            // return response()->json(['if' => $photoPath]);
-            return $this->photoService->removeImage($photoPath);
+
+        if ($data['photo_original'] != $data['photoName']) {
+
+            $photoPath = strval($data['photoName']);
+
+            if ($photoPath != null) {
+
+                return $this->photoService->removeImage($photoPath);
+            }
+        }
+
+        if ($data['photo_original'] != null) {
+            return redirect()->route('usuarios.index');
         }
 
         return response()->json(['success' => false, 'message' => 'Arquivo não encontrado']);

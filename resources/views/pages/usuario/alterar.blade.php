@@ -38,6 +38,7 @@
 
             let dados = JSON.stringify({
                 photoName: photoName,
+                photo_original : '{{ $registro->photo }}'
             });
 
             $.ajaxSetup({
