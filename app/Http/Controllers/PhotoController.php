@@ -24,11 +24,15 @@ class PhotoController extends Controller
         }
     }
 
-    public function removeImage($photoName)
+    public function removeImage(Request $photoName)
     {
-        $photoName = $photoName->all();
-        if (isset($photoName)) {
-            return $this->photoService->removeImage($photoName);
+        $data = json_decode($photoName->getContent(), true);
+        // $photoName->only('photoName');
+        $photoPath = strval($data['photoName']);
+        // return response()->json(['teste' => $photoPath]);
+        if ($photoPath != null) {
+            // return response()->json(['if' => $photoPath]);
+            return $this->photoService->removeImage($photoPath);
         }
 
         return response()->json(['success' => false, 'message' => 'Arquivo não encontrado']);

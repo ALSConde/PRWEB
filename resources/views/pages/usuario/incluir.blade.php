@@ -37,10 +37,10 @@
             event.preventDefault();
 
             let __tokenCSRF = '{{ csrf_token() }}';
-            let photoName = $('#photo').attr('src').split('/').pop(); // obter o nome do arquivo da imagem
+            let photoName = $('#photo').attr('src'); // obter o nome do arquivo da imagem
 
             let dados = JSON.stringify({
-                "photo": photoName,
+                photoName: photoName,
             });
 
             $.ajaxSetup({
@@ -55,11 +55,11 @@
                 data: dados,
                 success: function(data) {
                     console.log(data);
-                    // window.location.href = "{{ url('/usuario/cancelar') }}";
+                    window.location.href = "{{ url('/usuario/cancelar') }}";
                 },
                 error: function(data) {
                     console.log(data);
-                    // window.location.href = "{{ url('/usuario/cancelar') }}";
+                    window.location.href = "{{ url('/usuario/cancelar') }}";
                 }
             });
         });
