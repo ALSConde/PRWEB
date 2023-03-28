@@ -40,36 +40,19 @@ class UsuarioController extends Controller
     //Salvar usuarios
     public function create(UsuarioModel $request)
     {
-        $registro = $request->all(); //pega todos os dados do formulario
-
-        // if ($request->hasFile('image')) {
-        //     $image = $request->file('image');
-        //     $imageName = time() . '.' . $image->getClientOriginalExtension();
-        //     $image->move(public_path('storage/images'), $imageName);
-        //     $registro['photo'] = asset('storage/images/' . $imageName);
-        // } else {
-        //     $registro['photo'] = asset('img/user.svg');
-        // }
-        // dd($data); //die and dump
-
-        $registro['photo'] = $this->photoService->saveImage($request->file('photo'));
+        $registro = $request->only(['name', 'email', 'photo_original']); //pega todos os dados do formulario
         // dd($registro);
-        $data = $this->userService->create($registro); //salva no banco de dados
+        if (isset($registro['photo_original'])) {
+            $newUser = $registro;
+            $newUser['photo'] = $newUser['photo_original'];
+            unset($newUser['photo_original']);
+        }
+
+        // dd($newUser);
+        $data = $this->userService->create($newUser); //salva no banco de dados
 
         return redirect()->route('usuarios.index')->with('success', $data['sucess']); //redireciona para a rota usuarios.index
     }
-
-    // public function uploadImage(Request $request)
-    // {
-    //     if ($request->hasFile('image')) {
-    //         $image = $request->file('image');
-    //         $imageName = time() . '.' . $image->getClientOriginalExtension();
-    //         $image->move(public_path('storage/images'), $imageName);
-    //         return response()->json(['success' => $imageName]);
-    //     }
-
-    //     return response('ERRO', 403);
-    // }
 
     public function alterar($id)
     {
@@ -86,13 +69,26 @@ class UsuarioController extends Controller
 
     public function update(UsuarioModel $request, $id)
     {
-        $registro = $request->all();
+        $registro = $request->only(['name', 'email', 'photo_original']); //pega todos os dados do formulario
+
+        // dd($registro);
+
+        if (isset($registro['photo_original'])) {
+            $newUser = $registro;
+            $newUser['photo'] = $newUser['photo_original'];
+            unset($newUser['photo_original']);
+        }
+
+        $usuario = $this->userService->find($id);
+
+        if ($usuario['photo'] != $newUser['photo']) {
+            // dd($usuario['photo'], $newUser['photo']);
+            $this->photoService->removeImage($usuario['photo']);
+        }
 
         // dd($request);
 
-        $registro['photo'] = $this->photoService->saveImage($request->file('photo'));
-
-        $data = $this->userService->update($registro, $id);
+        $data = $this->userService->update($newUser, $id);
 
         // dd($data);
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\PhotoService;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PhotoController extends Controller
@@ -16,23 +17,18 @@ class PhotoController extends Controller
         $this->photoService = $photoService;
     }
 
-
-    public function uploadImage(Request $request)
+    public function saveImage(Request $request)
     {
-        if($request->hasFile('photo')){
+        if ($request->hasFile('photo')) {
             return $this->photoService->uploadImage($request->file('photo'));
         }
     }
 
-    public function saveImage($image){
-       return $this->photoService->saveImage($image);
-    }
-
-    public function removeImage(Request $request)
+    public function removeImage($photoName)
     {
-        $data = $request->json()->all();
-        if(isset($data['photo'])){
-            return $this->photoService->removeImage($data['photo']);
+        $photoName = $photoName->all();
+        if (isset($photoName)) {
+            return $this->photoService->removeImage($photoName);
         }
 
         return response()->json(['success' => false, 'message' => 'Arquivo não encontrado']);

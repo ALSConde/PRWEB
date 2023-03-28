@@ -50,13 +50,15 @@
                 url: '{{ url('/photo/cancel/') }}',
                 type: 'POST',
                 data: dados,
+                contentType: 'application/json',
+                *
                 success: function(data) {
                     console.log(data);
-                    window.location.href = "{{ url('/usuario/cancelar') }}";
+                    // window.location.href = "{{ url('/usuario/cancelar') }}";
                 },
                 error: function(data) {
                     console.log(data);
-                    window.location.href = "{{ url('/usuario/cancelar') }}";
+                    // window.location.href = "{{ url('/usuario/cancelar') }}";
                 }
             });
         });

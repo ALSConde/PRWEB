@@ -8,6 +8,7 @@
                         src="{{ isset($registro->photo) ? $registro->photo : asset('img/user.svg') }}">
                     <div class="mt-3">
                         <input id="photo" class="form-control" name="photo" type="file" accept="image/*">
+                        <input id="photoPath" type="hidden" name="photo_original" value="{{ isset($registro->photo) }}">
                         <div class="fileInput">
                             <button id="upload" class="btn btn-success btn-lg upload" title="upload de fotos"
                                 type="submit">
@@ -77,10 +78,11 @@
                 cache: false,
                 success: function(data) {
                     console.log(data);
-                    $('#photo').attr('src', storagePhotos + '/' + data.success);
+                    $('#photo').attr('src', data);
+                    $('#photoPath').val(data);
                 },
                 error: function(data) {
-                    console.log(data);
+                    console.log(data.success);
                 }
             });
         })

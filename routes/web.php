@@ -35,5 +35,5 @@ Route::prefix('usuario')->group(function () {
     Route::post('/delete/{id}', [UsuarioController::class, 'delete'])->name('usuarios.delete');
 });
 
-Route::post('/photo/upload', [PhotoController::class, 'uploadImage'])->name('uploadImage');
+Route::post('/photo/upload', [PhotoController::class, 'saveImage'])->name('uploadImage');
 Route::post('/photo/cancel', [PhotoController::class, 'removeImage'])->name('removeImage');

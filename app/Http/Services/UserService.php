@@ -10,15 +10,17 @@ class UserService
 
     // Private vars
     private $repository;
+    private $photoService;
 
-    public function __construct(User $user)
+    public function __construct(User $user, PhotoService $photoService)
     {
         $this->repository = $user;
+        $this->photoService = $photoService;
     }
 
     public function index()
     {
-        $registros = $this->repository->paginate(5);
+        $registros = $this->repository->all();
         // dd($registros);
         return (['registros' => $registros,]);
     }
@@ -55,11 +57,14 @@ class UserService
     public function delete($id)
     {
         $data = $this->repository->find($id);
-
+        $this->photoService->removeImage($data->photo);
         $data->delete();
 
         return (['success' => 'Registro excluido com sucesso',]);
     }
 
-
+    public function find($id)
+    {
+        return $this->repository->find($id);
+    }
 }
