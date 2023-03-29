@@ -24,12 +24,18 @@ class UsuarioController extends Controller
     public function index(Request $request)
     {
         // dd($request->all());
-        $search = $request->all('pesquisa');
-        $data = $this->userService->index($search['pesquisa']);
+        $tamPagina = [5, 10, 15, 20, 30, 40];
+        $search = $request->pesquisa;
+        $item = $request->pagina ?? 5;
+        $data = $this->userService->index($search, $item);
         $registros = $data['registros'];
         // dd($registros);
 
-        return view('pages.usuario.index', ['registros' => $registros,]);
+        return view('pages.usuario.index', [
+            'registros' => $registros,
+            'tamPagina' => $tamPagina,
+            'item' => $item,
+        ]);
     }
 
     //Incluir usuarios

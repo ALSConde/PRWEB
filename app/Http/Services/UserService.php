@@ -15,7 +15,7 @@ class UserService
         $this->repository = $user;
     }
 
-    public function index($search)
+    public function index($search, $item)
     {
         // dd($search);
         $registros = $this->repository
@@ -25,17 +25,9 @@ class UserService
                     $query->orWhere('email', 'like', '%' . $search . '%');
                 }
             })
-            ->paginate(5);
+            ->paginate($item)->appends(['pesquisa' => $search, 'pagina' => $item]);
 
         // dd($registros);
-        return (['registros' => $registros,]);
-    }
-
-    public function search($search)
-    {
-        $registros = $this->repository->where('name', 'like', '%' . $search . '%')->paginate(5);
-        // dd($registros);
-
         return (['registros' => $registros,]);
     }
 

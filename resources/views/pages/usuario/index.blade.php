@@ -14,6 +14,16 @@
                                 <label for="pesquisa" class="control-label">Pesquisar:</label>
                                 <input type="text" class="form-control col-sm-5" id="pesquisa" name="pesquisa"
                                     placeholder="Digite um dado para pesquisa">
+                                <label for="quantidade" class="control-label">Quantidade:</label>
+                                <select name="pagina" id="quantidade" class="form-control">
+                                    @foreach ($tamPagina as $qtd)
+                                        <option value="{{ $qtd }}"
+                                            @if($item==$qtd) selected @endif>
+                                            {{ $qtd }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
                                 <div class="col-sm-5">
                                     <button type="submit" class="btn btn-primary">
                                         Pesquisar
@@ -62,7 +72,9 @@
                             @endforelse
                         </tbody>
                     </table>
-                    {{ $registros->links() }}
+                    <div class="pagination justify-content-end">
+                        {{ $registros->links() }}
+                    </div>
                     <a class="btn btn-success btn-lg" href="{{ url('/usuario/incluir') }}">
                         <i class="fa fa-plus-circle"> Incluir novos usuários</i></a>
                 </div>
