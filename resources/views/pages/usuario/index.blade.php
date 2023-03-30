@@ -72,8 +72,8 @@
                 infoFiltered: (filtrado de _MAX_ registros no total),
                 search: Pesquisar,
                 paginate: {
-                    first: "Primeiro,
-                    last: "Último,
+                    first: Primeiro,
+                    last: Último,
                     next: Próximo,
                     previous: Anterior
                 }
