@@ -57,25 +57,26 @@
     <script>
         $(document).ready(function() {
             $('#table').DataTable({
-                lengthMenu: Mostrar < select > +
-                    <
-                    option value = "5" > 5 < /option> + <
-                    option value = "10" > 10 < /option> + <
-                    option value = "20" > 20 < /option> + <
-                    option value = "30" > 30 < /option> + <
-                    option value = "40" > 40 < /option> + <
-                    option value = "50" > 50 < /option> + <
-                    /select>registros por página,
-                zeroRecords: Nenhum registro encontrado,
-                info: Mostrando página _PAGE_ de _PAGES_,
-                infoEmpty: Nenhum registro disponível,
-                infoFiltered: (filtrado de _MAX_ registros no total),
-                search: Pesquisar,
-                paginate: {
-                    first: Primeiro,
-                    last: Último,
-                    next: Próximo,
-                    previous: Anterior
+                "language": {
+                    "lengthMenu": "Mostrar <select>" +
+                        '<option value="5">5</option>' +
+                        '<option value="10">10</option>' +
+                        '<option value="20">20</option>' +
+                        '<option value="30">30</option>' +
+                        '<option value="40">40</option>' +
+                        '<option value="50">50</option>' +
+                        "</select>registros por página",
+                    "zeroRecords": "Nenhum registro encontrado",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Nenhum registro disponível",
+                    "infoFiltered": "(filtrado de _MAX_ registros no total)",
+                    "search": "Pesquisar",
+                    "paginate": {
+                        "first": "Primeiro",
+                        "last": "Último",
+                        "next": "Próximo",
+                        "previous": "Anterior"
+                    }
                 }
             });
         })
