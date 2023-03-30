@@ -24,8 +24,8 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
 
 Route::prefix('usuario')->group(function () {
-    Route::get('/', [UsuarioController::class, 'index'])->name('usuarios.index');
-    Route::get('/listar', [UsuarioController::class, 'index'])->name('usuarios.index');
+    Route::any('/', [UsuarioController::class, 'index'])->name('usuarios.index');
+    Route::any('/listar', [UsuarioController::class, 'index'])->name('usuarios.index');
     Route::get('/cancelar', [UsuarioController::class, 'index']);
     Route::get('/incluir', [UsuarioController::class, 'incluir'])->name('usuarios.incluir');
     Route::post('/incluir', [UsuarioController::class, 'create'])->name('usuarios.create');

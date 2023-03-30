@@ -18,9 +18,18 @@ class UserService
         $this->photoService = $photoService;
     }
 
-    public function index()
+    public function index($search, $item)
     {
-        $registros = $this->repository->all();
+        // dd($search);
+        $registros = $this->repository
+            ->where(function ($query) use ($search) {
+                if ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                    $query->orWhere('email', 'like', '%' . $search . '%');
+                }
+            })
+            ->paginate($item)->appends(['pesquisa' => $search, 'pagina' => $item]);
+
         // dd($registros);
         return (['registros' => $registros,]);
     }
