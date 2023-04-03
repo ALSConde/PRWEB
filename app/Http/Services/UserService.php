@@ -43,9 +43,16 @@ class UserService
     {
         $data = $this->repository->find($id);
 
-        $data->update($registro);
+        $data->name = $registro['name'];
+        $data->email = $registro['email'];
 
-        return (['success' => 'Registro alterado com sucesso',]);
+        $data->save();
+        // $data->update($registro);
+        
+        return ([
+            'success' => 'Registro alterado com sucesso',
+            'registro' => $data,
+        ]);
     }
 
     public function buscar($id)
