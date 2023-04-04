@@ -23,6 +23,6 @@ Route::prefix('usuario')->group(function () {
     Route::any('/listar', [UsuarioRestController::class, 'index']);
     Route::post('/incluir', [UsuarioRestController::class, 'create']);
     Route::put('/alterar/{id}', [UsuarioRestController::class, 'update']);
-    Route::post('/delete/{id}', [UsuarioRestController::class, 'delete']);
+    Route::delete('/delete/{id}', [UsuarioRestController::class, 'delete']);
     Route::get('/show/{id}', [UsuarioRestController::class, 'show']);
 });

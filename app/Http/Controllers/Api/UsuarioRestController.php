@@ -25,31 +25,29 @@ class UsuarioRestController extends Controller
     //index usuarios
     public function index(Request $request)
     {
-        // dd($request->all());
-        // $tamPagina = [5, 10, 15, 20, 30, 40];
-        $search = $request->pesquisa;
-        $item = $request->pagina ?? 5;
-        $data = $this->userService->index($search, $item);
-        $registros = $data['registros'];
-        // dd($registros);
+        $search = $request->pesquisa ?? '';
+        $perPage = $request->pagina ?? 5;
+        $data = $this->userService->index($search, $perPage);
 
         return response()->json([
-            'registros' => $registros,
-            // 'tamPagina' => $tamPagina,
-            'item' => $item,
+            'registros' => $data['registros'],
         ]);
     }
 
     //Salvar usuarios
-    public function create(UsuarioModel $request)
+    public function create(UsuarioModel $request, User $registro)
     {
-        $registro = $request->all(); //pega todos os dados do formulario
+        $registro = $request->all();
 
-        $registro['photo'] = $this->photoService->saveImage($request->file('photo'));
-        // dd($registro);
+        // $registro['photo'] = $this->photoService->saveImage($request->file('photo'));
+
         $data = $this->userService->create($registro); //salva no banco de dados
 
-        return redirect()->route('usuarios.index')->with('success', $data['sucess']); //redireciona para a rota usuarios.index
+        return response()->json([
+            'status' => 'ok',
+            'success' => $data['success'],
+            'registro' => $data['registro'],
+        ], 200);
     }
 
     public function update(User $user, UsuarioModel $request, $id)
@@ -59,17 +57,13 @@ class UsuarioRestController extends Controller
         $user->name = $registro['name'];
         $user->email = $registro['email'];
 
-        // dd($request);
-
         // $registro['photo'] = $this->photoService->saveImage($request->file('photo'));
 
         $data = $this->userService->update($user, $id);
 
-        // dd($data);
-
         return response()->json([
             'status' => 'ok',
-            'sucess' => $data['sucess'],
+            'sucess' => $data['success'],
             'registro' => $data['registro'],
         ], 200);
     }
@@ -79,16 +73,16 @@ class UsuarioRestController extends Controller
     {
         $data = $this->userService->delete($id);
 
-        return redirect()->route('usuarios.index')->with('success', $data['success']);
+        return response()->json(['success' => $data['success'], 'status' => 'ok',], 200);
     }
 
     public function show($id)
     {
         $data = $this->userService->buscar($id);
 
-        // if (isset($data['fail'])) {
-        //     return redirect()->back();
-        // }
+        if (!empty($data['fail'])) {
+            return response()->json(['status' => 'ok', 'fail' => 'registro não encontrado'], 404);
+        }
 
         return response()->json([
             'status' => 'ok',

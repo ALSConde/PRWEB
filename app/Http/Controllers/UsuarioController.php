@@ -23,13 +23,11 @@ class UsuarioController extends Controller
     //index usuarios
     public function index(Request $request)
     {
-        // dd($request->all());
         $tamPagina = [5, 10, 15, 20, 30, 40];
         $search = $request->pesquisa;
         $item = $request->pagina ?? 5;
         $data = $this->userService->index($search, $item);
         $registros = $data['registros'];
-        // dd($registros);
 
         return view('pages.usuario.index', [
             'registros' => $registros,
@@ -50,7 +48,7 @@ class UsuarioController extends Controller
         $registro = $request->all(); //pega todos os dados do formulario
 
         $registro['photo'] = $this->photoService->saveImage($request->file('photo'));
-        // dd($registro);
+
         $data = $this->userService->create($registro); //salva no banco de dados
 
         return redirect()->route('usuarios.index')->with('success', $data['sucess']); //redireciona para a rota usuarios.index
@@ -64,8 +62,6 @@ class UsuarioController extends Controller
             return redirect()->back();
         }
 
-        // dd($registro);
-
         return view('pages.usuario.alterar', ['registro' => $data['registro'],]);
     }
 
@@ -73,13 +69,9 @@ class UsuarioController extends Controller
     {
         $registro = $request->all();
 
-        // dd($request);
-
         $registro['photo'] = $this->photoService->saveImage($request->file('photo'));
 
         $data = $this->userService->update($registro, $id);
-
-        // dd($data);
 
         return redirect()->route('usuarios.index')->with('success', $data['success']);
     }

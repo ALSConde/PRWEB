@@ -15,9 +15,8 @@ class UserService
         $this->repository = $user;
     }
 
-    public function index($search, $item)
+    public function index($search, $perPage)
     {
-        // dd($search);
         $registros = $this->repository
             ->where(function ($query) use ($search) {
                 if ($search) {
@@ -25,18 +24,21 @@ class UserService
                     $query->orWhere('email', 'like', '%' . $search . '%');
                 }
             })
-            ->paginate($item)->appends(['pesquisa' => $search, 'pagina' => $item]);
+            ->paginate($perPage)->appends(['pesquisa' => $search, 'pagina' => $perPage]);
 
-        // dd($registros);
         return (['registros' => $registros,]);
     }
 
     //Salvar usuarios
     public function create($registro)
     {
-        $this->repository->create($registro); //salva no banco de dados
+        // $data = $registro;
+        $data = $this->repository->create($registro); //salva no banco de dados
 
-        return (['sucess' => 'Registro cadastrado com sucesso',]); //redireciona para a rota usuarios.index
+        return ([
+            'success' => 'Registro cadastrado com sucesso',
+            'registro' => $data,
+        ]);
     }
 
     public function update($registro, $id)
@@ -48,7 +50,7 @@ class UserService
 
         $data->save();
         // $data->update($registro);
-        
+
         return ([
             'success' => 'Registro alterado com sucesso',
             'registro' => $data,
