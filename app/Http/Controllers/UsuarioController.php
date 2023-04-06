@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UsuarioModel;
-use App\Http\Services\UserService;
+use App\Http\Services\UserServiceInterface;
 use App\Http\Services\PhotoService;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,7 @@ class UsuarioController extends Controller
     private $photoService;
 
     // construtor
-    public function __construct(UserService $usuarioService, PhotoService $photoService)
+    public function __construct(UserServiceInterface $usuarioService, PhotoService $photoService)
     {
         $this->userService = $usuarioService;
         $this->photoService = $photoService;
@@ -23,6 +23,8 @@ class UsuarioController extends Controller
     //index usuarios
     public function index(Request $request)
     {
+        $filters = $request->all();
+        // dd($filters);
         $tamPagina = [5, 10, 15, 20, 30, 40];
         $search = $request->pesquisa;
         $item = $request->pagina ?? 5;
@@ -33,6 +35,9 @@ class UsuarioController extends Controller
             'registros' => $registros,
             'tamPagina' => $tamPagina,
             'item' => $item,
+            'filters' => [
+                'pesquisa' => $search,
+            ],
         ]);
     }
 
@@ -51,7 +56,7 @@ class UsuarioController extends Controller
 
         $data = $this->userService->create($registro); //salva no banco de dados
 
-        return redirect()->route('usuarios.index')->with('success', $data['sucess']); //redireciona para a rota usuarios.index
+        return redirect()->route('usuarios.index')->with('success', $data['success']); //redireciona para a rota usuarios.index
     }
 
     public function alterar($id)

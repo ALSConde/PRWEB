@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UsuarioModel;
-use App\Http\Services\UserService;
+use App\Http\Services\UserServiceInterface;
 use App\Http\Services\PhotoService;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class UsuarioRestController extends Controller
     private $photoService;
 
     // construtor
-    public function __construct(UserService $usuarioService, PhotoService $photoService)
+    public function __construct(UserServiceInterface $usuarioService, PhotoService $photoService)
     {
         $this->userService = $usuarioService;
         $this->photoService = $photoService;

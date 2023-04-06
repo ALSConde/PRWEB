@@ -4,7 +4,7 @@ namespace App\Http\Services;
 
 use App\Models\User;
 
-class UserService
+class UserService implements UserServiceInterface
 {
 
     // Private vars
@@ -24,7 +24,7 @@ class UserService
                     $query->orWhere('email', 'like', '%' . $search . '%');
                 }
             })
-            ->paginate($perPage)->appends(['pesquisa' => $search, 'pagina' => $perPage]);
+            ->paginate($perPage);
 
         return (['registros' => $registros,]);
     }

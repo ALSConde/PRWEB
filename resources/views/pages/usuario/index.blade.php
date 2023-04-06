@@ -4,36 +4,33 @@
 <!-- construct the home page -->
 @section('content')
     <div class="container">
-        <div class="container">
-            <div class="tile">
-                <div class="tile.body">
-                    <form method="POST" class="form-inline" action="{{ url('/usuario/listar') }}">
-                        @csrf
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label for="pesquisa" class="control-label">Pesquisar:</label>
-                                <input type="text" class="form-control col-sm-5" id="pesquisa" name="pesquisa"
-                                    placeholder="Digite um dado para pesquisa">
-                                <label for="quantidade" class="control-label">Quantidade:</label>
-                                <select name="pagina" id="quantidade" class="form-control">
-                                    @foreach ($tamPagina as $qtd)
-                                        <option value="{{ $qtd }}"
-                                            @if($item==$qtd) selected @endif>
-                                            {{ $qtd }}
-                                        </option>
-                                    @endforeach
-                                </select>
-
-                                <div class="col-sm-5">
-                                    <button type="submit" class="btn btn-primary">
-                                        Pesquisar
-                                        <i class="fa fa-search-plus"></i>
-                                    </button>
-                                </div>
+        <x-local-sistema local="Lista de Usuarios" url="/home" texto="Menu Principal" />
+        <div class="tile">
+            <div class="tile-body">
+                <form method="POST" class="form-inline" action="{{ url('/usuario/listar') }}">
+                    @csrf
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="pesquisa" class="control-label">Pesquisar:</label>
+                            <input type="text" class="form-control col-sm-5" id="pesquisa" name="pesquisa"
+                                placeholder="Digite um dado para pesquisa" value="{{ $filters['pesquisa'] }}">
+                            <label for="quantidade" class="control-label">Quantidade:</label>
+                            <select name="pagina" id="quantidade" class="form-control">
+                                @foreach ($tamPagina as $perPage)
+                                    <option value="{{ $perPage }}" @if ($item == $perPage) selected @endif>
+                                        {{ $perPage }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <div class="col-sm-5">
+                                <button type="submit" class="btn btn-primary">
+                                    Pesquisar
+                                    <i class="fa fa-search-plus"></i>
+                                </button>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="container">
@@ -60,7 +57,7 @@
                                         <a class="btn btn-info btn-sm"
                                             href="{{ url('/usuario/alterar/' . $registro->id) }}"><i
                                                 class="fa fa-pencil"></i></a>
-                                        <a class="btn btn-danger btn-sm"
+                                        <a class="btn btn-danger btn-sm" id="excluir"
                                             href="{{ url('/usuario/excluir', $registro->id) }}"><i
                                                 class="fa fa-trash"></i></a>
                                     </td>
@@ -73,7 +70,11 @@
                         </tbody>
                     </table>
                     <div class="pagination justify-content-end">
-                        {{ $registros->links() }}
+                        @if (isset($filters))
+                            {{ $registros->appends($filters)->links() }}
+                        @else
+                            {{ $registros->links() }}
+                        @endif
                     </div>
                     <a class="btn btn-success btn-lg" href="{{ url('/usuario/incluir') }}">
                         <i class="fa fa-plus-circle"> Incluir novos usuários</i></a>

@@ -9,7 +9,6 @@
 
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
     <link href="{{ asset('lib/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/css/styles.css') }}" rel="stylesheet">
@@ -45,8 +44,9 @@
     <script src="{{ asset('lib/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('lib/js/main.js') }}"></script>
     <script src="{{ asset('lib/js/plugins/pace.min.js') }}"></script>
+    @stack('scripts')
 
-    @stack('scripts') <!-- Scripts adicionais // Cria uma pilha de scripts-->
+    @yield('javascript')
 </body>
 
 </html>
