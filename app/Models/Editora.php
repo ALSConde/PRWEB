@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Editora extends Model
 {
     use HasFactory;
+
+    public function livros()
+    {
+        return $this->hasMany('App\Models\Livro', 'editora_id');
+    }
 }

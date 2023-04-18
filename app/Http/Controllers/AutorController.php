@@ -5,81 +5,55 @@ namespace App\Http\Controllers;
 use App\Models\Autor;
 use App\Http\Requests\StoreAutorRequest;
 use App\Http\Requests\UpdateAutorRequest;
+use App\Http\Services\AutorServiceInterface;
+use Illuminate\Http\Request;
 
 class AutorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    private $service;
+
+    public function __construct(AutorServiceInterface $service)
     {
-        //
+        $this->service = $service;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function index(Request $request)
+    {
+        return view('pages.autor.index', []);
+    }
+
     public function create()
     {
         //
+        return view('pages.autor.incluir', []);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreAutorRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function delete($id){
+        //
+    }
+
     public function store(StoreAutorRequest $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Autor  $autor
-     * @return \Illuminate\Http\Response
-     */
     public function show(Autor $autor)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Autor  $autor
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Autor $autor)
+    public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateAutorRequest  $request
-     * @param  \App\Models\Autor  $autor
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateAutorRequest $request, Autor $autor)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Autor  $autor
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Autor $autor)
+    public function destroy($id)
     {
         //
     }

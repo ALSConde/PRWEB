@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AutorController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PhotoController;
+use App\Models\Autor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
@@ -35,6 +33,18 @@ Route::prefix('usuario')->group(function () {
     Route::get('/excluir/{id}', [UsuarioController::class, 'excluir']);
     Route::post('/delete/{id}', [UsuarioController::class, 'delete'])->name('usuarios.delete');
 });
+
+Route::prefix('autor')->group(function () {
+    Route::any('/', [AutorController::class, 'index'])->name('autor.index');
+    Route::get('/create', [AutorController::class, 'create'])->name('autor.create');
+    Route::post('/store', [AutorController::class, 'store'])->name('autor.store');
+    Route::get('/edit/{id}', [AutorController::class, 'edit'])->name('autor.edit');
+    Route::post('/update/{id}', [AutorController::class, 'update'])->name('autor.update');
+    Route::get('/delete/{id}', [AutorController::class, 'delete'])->name('autor.delete');
+    Route::post('/destroy/{id}', [AutorController::class, 'destroy'])->name('autor.destroy');
+    Route::get('/cancelar', [AutorController::class, 'index'])->name('autor.cancelar');
+});
+
 
 Route::post('/photo/upload', [PhotoController::class, 'uploadImage'])->name('uploadImage');
 Route::post('/photo/cancel', [PhotoController::class, 'removeImage'])->name('removeImage');
