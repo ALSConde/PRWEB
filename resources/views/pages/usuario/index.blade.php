@@ -55,7 +55,7 @@
                                     <td style="text-align: center">{{ $registro->email }}</td>
                                     <td>
                                         <a class="btn btn-info btn-sm"
-                                            href="{{ url('/usuario/alterar/' . $registro->id) }}"><i
+                                            href="{{ url('/usuario/alterar', $registro->id) }}"><i
                                                 class="fa fa-pencil"></i></a>
                                         <a class="btn btn-danger btn-sm" id="excluir"
                                             href="{{ url('/usuario/excluir', $registro->id) }}"><i

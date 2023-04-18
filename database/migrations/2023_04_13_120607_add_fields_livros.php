@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('editoras', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nome', 100);
-            $table->timestamps();
+        Schema::table('livros', function (Blueprint $table) {
+            $table->integer('autor_id')->unsigned();
+            $table->integer('editora_id')->unsigned();
+            $table->foreign('autor_id')->references('id')->on('autors')->onDelete('cascade');
+            $table->foreign('editora_id')->references('id')->on('editoras')->onDelete('cascade');
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('editoras');
+        //
     }
 };
