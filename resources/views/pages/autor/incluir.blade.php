@@ -4,17 +4,17 @@
 <!-- construct the include page -->
 @section('content')
     <div class="container">
-        <x-local-sistema local="Inclusão de autor" url="/autor/listar" texto="Listagem de Usuários" />
+        <x-local-sistema local="Inclusão de autor" url="/autor/" texto="Listagem de autores" />
         <div class="tile">
             <div class="tile-body">
-                <form action="{{ route('autor.create') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('autor.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @include('pages.autor.__form')
                     <div class="row mt-5">
                         <div class="col-xs-12 col-sm-12 col-md-6">
                             <button class="btn btn-primary btn-lg">
                                 <i class="fa fa-plus-circle">
-                                    Incluir novo usuário
+                                    Incluir novo autor
                                 </i>
                             </button>
                             <a id="cancelar" class="btn btn-secondary btn-lg" href="{{ route('autor.index') }}">
@@ -29,38 +29,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        $('#cancelar').on('click', function(event) {
-            event.preventDefault();
-
-            let __tokenCSRF = '{{ csrf_token() }}';
-            let photoName = $('#photo').attr('src').split('/').pop(); // obter o nome do arquivo da imagem
-
-            let dados = JSON.stringify({
-                "photo": photoName,
-            });
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                url: '{{ url('/photo/cancel/') }}',
-                type: 'POST',
-                data: dados,
-                success: function(data) {
-                    console.log(data);
-                    window.location.href = "{{ url('/autor/cancelar') }}";
-                },
-                error: function(data) {
-                    console.log(data);
-                    window.location.href = "{{ url('/autor/cancelar') }}";
-                }
-            });
-        });
-    </script>
-@endpush

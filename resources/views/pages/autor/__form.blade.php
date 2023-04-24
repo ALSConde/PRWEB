@@ -1,32 +1,77 @@
 @include('layout.validate')
 <div class="row">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex flex-column align-center text-center">
-                    <img id="photo" class="avatar"
-                        src="{{ isset($registro->photo) ? $registro->photo : asset('img/user.svg') }}">
-                    <div class="mt-3">
-                        <input id="photo" class="form-control" name="photo" type="file" accept="image/*">
-                        <div class="fileInput">
-                            <button id="upload" class="btn btn-success btn-lg upload" title="upload de fotos"
-                                type="submit">
-                                <i style="font-size: 1.875rem" class="fa fa-upload fa-5x"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="col-md-8">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                    <label for="name" class="control-label">Nome:</label>
-                    <input id="name" name="name" class="form-control @error('name') is-invalid @enderror"
+                    <label for="nome" class="control-label">Nome:</label>
+                    <input id="nome" name="nome" class="form-control @error('nome') is-invalid @enderror"
                         value="{{ isset($registro->name) ? $registro->name : '' }}" />
-                    @error('name')
+                    @error('nome')
+                        <span class="invalid-feedback">
+                            <strong>
+                                {{ $message }}
+                            </strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label for="apelido" class="control-label">Apelido:</label>
+                    <input id="apelido" name="apelido" class="form-control @error('apelido') is-invalid @enderror"
+                        value="{{ isset($registro->apelido) ? $registro->apelido : '' }}" />
+                    @error('apelido')
+                        <span class="invalid-feedback">
+                            <strong>
+                                {{ $message }}
+                            </strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label for="endereco" class="control-label">Endereço:</label>
+                    <input id="endereco" name="endereco" class="form-control @error('endereco') is-invalid @enderror"
+                        value="{{ isset($registro->endereco) ? $registro->endereco : '' }}" />
+                    @error('endereco')
+                        <span class="invalid-feedback">
+                            <strong>
+                                {{ $message }}
+                            </strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label for="bairro" class="control-label">Bairro:</label>
+                    <input id="bairro" name="bairro" class="form-control @error('bairro') is-invalid @enderror"
+                        value="{{ isset($registro->bairro) ? $registro->bairro : '' }}" />
+                    @error('bairro')
+                        <span class="invalid-feedback">
+                            <strong>
+                                {{ $message }}
+                            </strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label for="cep" class="control-label">Cep:</label>
+                    <input id="cep" name="cep" class="form-control @error('cep') is-invalid @enderror"
+                        value="{{ isset($registro->cep) ? $registro->cep : '' }}" />
+                    @error('cep')
                         <span class="invalid-feedback">
                             <strong>
                                 {{ $message }}
@@ -52,37 +97,21 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label for="telefone" class="control-label">Telefone:</label>
+                    <input id="telefone" name="telefone" class="form-control @error('telefone') is-invalid @enderror"
+                        value="{{ isset($registro->telefone) ? $registro->telefone : '' }}" />
+                    @error('telefone')
+                        <span class="invalid-feedback">
+                            <strong>
+                                {{ $message }}
+                            </strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-@push('scripts')
-    <script>
-        $('#upload').on('click', function(event) {
-            event.preventDefault();
-
-            let file = $('input[type=file]').get(0).files[0];
-            let __tokenCSRF = '{{ csrf_token() }}';
-            let formData = new FormData();
-            const storagePhotos = '{{ asset('storage/images') }}';
-
-            formData.append('photo', file);
-            formData.append('_token', __tokenCSRF);
-
-            $.ajax({
-                url: '{{ url('/photo/upload') }}',
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                cache: false,
-                success: function(data) {
-                    console.log(data);
-                    $('#photo').attr('src', storagePhotos + '/' + data.success);
-                },
-                error: function(data) {
-                    console.log(data);
-                }
-            });
-        })
-    </script>
-@endpush

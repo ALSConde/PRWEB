@@ -17,7 +17,13 @@ class AutorFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nome' => fake()->name(),
+            'apelido' => fake()->name(),
+            'endereco' => fake()->address(),
+            'bairro' => fake()->name(),
+            'cep' => fake()->postcode(),
+            'email' => fake()->unique()->safeEmail(),
+            'telefone' => fake()->phoneNumber(),
         ];
     }
 }

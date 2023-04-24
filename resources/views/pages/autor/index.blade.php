@@ -4,7 +4,7 @@
 <!-- construct the home page -->
 @section('content')
     <div class="container">
-        <x-local-sistema local="Lista de autors" url="/home" texto="Menu Principal" />
+        <x-local-sistema local="Lista de autores" url="/home" texto="Menu Principal" />
         <div class="tile">
             <div class="tile-body">
                 <form method="POST" class="form-inline" action="{{ route('autor.index') }}">
@@ -43,6 +43,8 @@
                         <tr>
                             <th style="font-weight: bold; text-align: center">id</th>
                             <th style="font-weight: bold; text-align: center">Nome</th>
+                            <th style="font-weight: bold; text-align: center">Apelido</th>
+                            <th style="font-weight: bold; text-align: center">Telefone</th>
                             <th style="font-weight: bold; text-align: center">E-mail</th>
                             <th style="font-weight: bold; text-align: center">Ações</th>
                         </tr>
@@ -52,6 +54,8 @@
                                 <tr>
                                     <td style="text-align: center">{{ $registro->id }}</td>
                                     <td style="text-align: center">{{ $registro->nome }}</td>
+                                    <td style="text-align: center">{{ $registro->apelido }}</td>
+                                    <td style="text-align: center">{{ $registro->telefone }}</td>
                                     <td style="text-align: center">{{ $registro->email }}</td>
                                     <td>
                                         <a class="btn btn-info btn-sm" href="{{ route('autor.edit', $registro->id) }}"><i
@@ -63,7 +67,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" style="text-align: center">Nenhum registro encontrado.</td>
+                                    <td colspan="6" style="text-align: center">Nenhum registro encontrado.</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -75,8 +79,8 @@
                             {{ $registros->links() }}
                         @endif
                     </div>
-                    <a class="btn btn-success btn-lg" href="{{ url('/autor/incluir') }}">
-                        <i class="fa fa-plus-circle"> Incluir novos usuários</i></a>
+                    <a class="btn btn-success btn-lg" href="{{ route('autor.create') }}">
+                        <i class="fa fa-plus-circle"> Incluir novos autores</i></a>
                 </div>
             </div>
         </div>

@@ -20,16 +20,31 @@ class AutorController extends Controller
 
     public function index(Request $request)
     {
-        return view('pages.autor.index', []);
+        // dd($filters);
+        $tamPagina = [5, 10, 15, 20, 30, 40];
+        $search = $request->pesquisa;
+        $item = $request->pagina ?? 5;
+        $data = $this->service->index($search, $item);
+        $registros = $data['registros'];
+
+        return view('pages.autor.index', [
+            'registros' => $registros,
+            'tamPagina' => $tamPagina,
+            'item' => $item,
+            'filters' => [
+                'pesquisa' => $search,
+            ],
+        ]);
     }
 
     public function create()
     {
         //
-        return view('pages.autor.incluir', []);
+        return view('pages.autor.incluir');
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         //
     }
 

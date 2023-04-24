@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Autor;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,5 +16,6 @@ class AutorSeeder extends Seeder
     public function run()
     {
         //
+        Autor::factory(1000)->create();
     }
 }

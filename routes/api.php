@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AutorRestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UsuarioRestController;
@@ -25,4 +26,14 @@ Route::prefix('usuario')->group(function () {
     Route::put('/alterar/{id}', [UsuarioRestController::class, 'update']);
     Route::delete('/delete/{id}', [UsuarioRestController::class, 'delete']);
     Route::get('/show/{id}', [UsuarioRestController::class, 'show']);
+});
+
+Route::prefix('autor')->group(function () {
+    Route::any('/listar', [AutorRestController::class, 'index']);
+    Route::any('/index', [AutorRestController::class, 'index']);
+    Route::post('/create', [AutorRestController::class, 'create']);
+    Route::post('/store', [AutorRestController::class, 'store']);
+    Route::put('/update/{id}', [AutorRestController::class, 'update']);
+    Route::delete('/delete/{id}', [AutorRestController::class, 'delete']);
+    Route::get('/show/{id}', [AutorRestController::class, 'show']);
 });
