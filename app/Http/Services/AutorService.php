@@ -38,14 +38,29 @@ class AutorService implements AutorServiceInterface
 
     public function store(Request $request)
     {
-        $request->validate($this->repo->rules(), $this->repo->rules());
+        $request->validate(
+            $this->repo->rules(),
+            $this->repo->feedback()
+        );
 
         $data = $this->repo->create($request->all());
+
+        return ([
+            'success' => 'Registro incluido com sucesso',
+            'registro' => $data,
+        ]);
     }
 
     public function show($id)
     {
         //
+        $data = $this->repo->find($id);
+
+        if (!$data) {
+            return (['fail' => 'Registro não localizado']);
+        }
+
+        return (['registro' => $data]);
     }
 
     public function edit($id)
@@ -55,16 +70,35 @@ class AutorService implements AutorServiceInterface
 
     public function update(Request $request, $id)
     {
-        $request->validate($this->repo->rules(), $this->repo->rules());
 
         $autor = $this->repo->find($id);
 
+        if (!$autor) {
+            return (['fail' => 'Registro não localizado']);
+        }
+
+        $request->validate(
+            $this->repo->rules(),
+            $this->repo->feedback()
+        );
+
         $data = $autor->update($request->all());
+
+        return ([
+            'success' => 'Registro alterado com sucesso',
+            'registro' => $data,
+        ]);
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         //
+        $data = $this->repo->find($id);
+        if(!$data){
+            return (['fail' => 'Registro não localizado']);
+        }
+        $data->delete();
+        return (['success' => 'Registro excluido com sucesso']);
     }
 
     public function buscar($id)

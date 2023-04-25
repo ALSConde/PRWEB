@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Autor;
 use App\Http\Requests\StoreAutorRequest;
-use App\Http\Requests\UpdateAutorRequest;
 use App\Http\Services\AutorServiceInterface;
 use Illuminate\Http\Request;
 
@@ -48,9 +47,11 @@ class AutorController extends Controller
         //
     }
 
-    public function store(StoreAutorRequest $request)
+    public function store(Request $request)
     {
         //
+        $data = $this->service->store($request);
+        return redirect()->route('autor.index')->with('success', $data['success']);
     }
 
     public function show(Autor $autor)
@@ -63,9 +64,11 @@ class AutorController extends Controller
         //
     }
 
-    public function update(UpdateAutorRequest $request, Autor $autor)
+    public function update(Request $request, $id)
     {
         //
+      $data = $this->service->update($request, $id);
+        return redirect()->route('autor.index')->with('success', $data['success']);
     }
 
     public function destroy($id)

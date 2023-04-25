@@ -2,7 +2,6 @@
 
 namespace App\Http\Services;
 
-use App\Models\Autor;
 use Illuminate\Http\Request;
 
 interface AutorServiceInterface
@@ -13,6 +12,6 @@ interface AutorServiceInterface
     public function show($id);
     public function edit($id);
     public function update(Request $request, $id);
-    public function delete($id);
+    public function destroy($id);
     public function buscar($id);
 }

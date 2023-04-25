@@ -21,10 +21,13 @@
         @include('layout.components.header')
     </header>
 
+    @guest
+    @else
+        <aside>
+            @include('layout.components.sidebar')
+        </aside>
+    @endguest
     <!-- Aside -->
-    <aside>
-        @include('layout.components.sidebar')
-    </aside>
 
     <!-- Content -->
     <main>
