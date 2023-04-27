@@ -23,7 +23,7 @@
                         </div>
                 </form>
             </div>
-            <x-modal-sistema />
+            <x-modal-sistema teste="{{ $registro->id }}" />
         </div>
     </div>
 @endsection

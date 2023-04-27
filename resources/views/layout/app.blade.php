@@ -12,44 +12,63 @@
     <link href="{{ asset('lib/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/css/styles.css') }}" rel="stylesheet">
+    
 </head>
 
-<body class="app sedebar-mini rtl">
+@guest
 
-    <!-- Header -->
-    <header>
-        @include('layout.components.header')
-    </header>
+    <body class="app">
+        <div id="app">
+            <main>
+                @yield('content')
+            </main>
+        </div>
 
-    @guest
-    @else
+        <!-- Scripts -->
+        <script src="{{ asset('lib/js/jquery-3.3.1.min.js') }}"></script>
+        <script src="{{ asset('lib/js/popper.min.js') }}"></script>
+        <script src="{{ asset('lib/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('lib/js/main.js') }}"></script>
+        <script src="{{ asset('lib/js/plugins/pace.min.js') }}"></script>
+        @stack('scripts')
+        @yield('javascript')
+    </body>
+@else
+
+    <body class="app sidebar-mini rtl">
+
+        <!-- Header -->
+        <header>
+            @include('layout.components.header')
+        </header>
+
+        <!-- Aside -->
         <aside>
             @include('layout.components.sidebar')
         </aside>
-    @endguest
-    <!-- Aside -->
 
-    <!-- Content -->
-    <main>
-        <div class="app-content">
-            @yield('content')
-        </div>
-    </main>
+        <!-- Content -->
+        <main>
+            <div class="app-content">
+                @yield('content')
+            </div>
+        </main>
 
-    <!-- Footer -->
-    <footer>
-        @include('layout.components.footer')
-    </footer>
+        <!-- Footer -->
+        <footer>
+            @include('layout.components.footer')
+        </footer>
 
-    <!-- Scripts -->
-    <script src="{{ asset('lib/js/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ asset('lib/js/popper.min.js') }}"></script>
-    <script src="{{ asset('lib/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('lib/js/main.js') }}"></script>
-    <script src="{{ asset('lib/js/plugins/pace.min.js') }}"></script>
-    @stack('scripts')
+        <!-- Scripts -->
+        <script src="{{ asset('lib/js/jquery-3.3.1.min.js') }}"></script>
+        <script src="{{ asset('lib/js/popper.min.js') }}"></script>
+        <script src="{{ asset('lib/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('lib/js/main.js') }}"></script>
+        <script src="{{ asset('lib/js/plugins/pace.min.js') }}"></script>
+        @stack('scripts')
 
-    @yield('javascript')
-</body>
+        @yield('javascript')
+    </body>
+@endguest
 
 </html>

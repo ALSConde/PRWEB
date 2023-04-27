@@ -4,7 +4,6 @@ use App\Http\Controllers\AutorController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PhotoController;
-use App\Models\Autor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -51,4 +50,4 @@ Route::post('/photo/cancel', [PhotoController::class, 'removeImage'])->name('rem
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');

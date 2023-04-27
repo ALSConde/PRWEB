@@ -6,14 +6,18 @@ use Illuminate\View\Component;
 
 class ModalSistema extends Component
 {
+
+    private $teste;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($teste)
     {
         //
+        $this->teste = $teste;
     }
 
     /**
@@ -23,6 +27,8 @@ class ModalSistema extends Component
      */
     public function render()
     {
-        return view('components.modal-sistema');
+        return view('components.modal-sistema', [
+            'id' => $this->teste,
+        ]);
     }
 }

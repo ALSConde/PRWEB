@@ -6,6 +6,7 @@ use App\Http\Requests\UsuarioModel;
 use App\Http\Services\UserServiceInterface;
 use App\Http\Services\PhotoService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsuarioController extends Controller
 {
@@ -38,13 +39,19 @@ class UsuarioController extends Controller
             'filters' => [
                 'pesquisa' => $search,
             ],
+            'user' => Auth::user(),
         ]);
     }
 
     //Incluir usuarios
     public function incluir()
     {
-        return view('pages.usuario.incluir'); //retorna a view incluir
+        return view(
+            'pages.usuario.incluir',
+            [
+                'user' => Auth::user(),
+            ]
+        ); //retorna a view incluir
     }
 
     //Salvar usuarios
@@ -67,7 +74,10 @@ class UsuarioController extends Controller
             return redirect()->back();
         }
 
-        return view('pages.usuario.alterar', ['registro' => $data['registro'],]);
+        return view('pages.usuario.alterar', [
+            'registro' => $data['registro'],
+            'user' => Auth::user(),
+        ]);
     }
 
     public function update(UsuarioModel $request, $id)
@@ -92,6 +102,7 @@ class UsuarioController extends Controller
 
         return view('pages.usuario.excluir', [
             'registro' => $data['registro'],
+            'user' => Auth::user(),
         ]);
     }
 

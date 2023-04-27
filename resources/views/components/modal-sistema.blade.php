@@ -9,7 +9,7 @@
             </div>
             <div class="modal-content">
                 @csrf
-                <form action="{{ url('/usuario/alterar/' . $registro->id) }}" method="POST"
+                <form action="{{ url('/usuario/alterar/' . $id) }}" method="POST"
                     enctype="multipart/form-data">
                 </form>
             </div>
