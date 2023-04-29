@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AutorsExport;
 use App\Models\Autor;
-use App\Http\Requests\StoreAutorRequest;
 use App\Http\Services\AutorServiceInterface;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AutorController extends Controller
 {
@@ -67,12 +68,22 @@ class AutorController extends Controller
     public function update(Request $request, $id)
     {
         //
-      $data = $this->service->update($request, $id);
+        $data = $this->service->update($request, $id);
         return redirect()->route('autor.index')->with('success', $data['success']);
     }
 
     public function destroy($id)
     {
         //
+    }
+
+    public function export($extensao)
+    {
+        //
+        if (in_array($extensao, ['xlsx', 'csv', 'pdf'])) {
+            return Excel::download(new AutorsExport, 'autores.' . $extensao);
+        }
+
+        return redirect()->route('autor.index')->with('error', 'Extensão não permitida!');
     }
 }

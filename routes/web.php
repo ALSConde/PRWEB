@@ -42,6 +42,7 @@ Route::prefix('autor')->group(function () {
     Route::get('/delete/{id}', [AutorController::class, 'delete'])->name('autor.delete');
     Route::post('/destroy/{id}', [AutorController::class, 'destroy'])->name('autor.destroy');
     Route::get('/cancelar', [AutorController::class, 'index'])->name('autor.cancelar');
+    Route::get('/export/{extensao}', [AutorController::class, 'export'])->name('autor.export');
 });
 
 

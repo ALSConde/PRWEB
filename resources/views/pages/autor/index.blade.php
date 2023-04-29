@@ -49,7 +49,6 @@
                             <th style="font-weight: bold; text-align: center">Ações</th>
                         </tr>
                         <tbody>
-                            {{-- {{dd($registros)}} --}}
                             @forelse  ($registros as $registro)
                                 <tr>
                                     <td style="text-align: center">{{ $registro->id }}</td>
@@ -80,7 +79,14 @@
                         @endif
                     </div>
                     <a class="btn btn-success btn-lg" href="{{ route('autor.create') }}">
-                        <i class="fa fa-plus-circle"> Incluir novos autores</i></a>
+                        <i class="fa fa-plus-circle"> Incluir novos Autores</i>
+                    </a>
+                    <a class="btn btn-success btn-lg" href="{{ route('autor.export',['extensao' => 'xlsx']) }}">
+                        <i class="fa fa-plus-circle"> XLSX</i>
+                    </a>
+                    <a class="btn btn-success btn-lg" href="{{ route('autor.export',['extensao' => 'csv']) }}">
+                        <i class="fa fa-plus-circle"> CSV</i>
+                    </a>
                 </div>
             </div>
         </div>

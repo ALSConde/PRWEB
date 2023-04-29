@@ -12,17 +12,25 @@
     <link href="{{ asset('lib/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/css/styles.css') }}" rel="stylesheet">
-    
+
 </head>
 
 @guest
 
-    <body class="app">
-        <div id="app">
-            <main>
+    <body class="app sidebar-mini">
+        <header>
+            @include('layout.components.header')
+        </header>
+
+        <main>
+            <div class="app-content">
                 @yield('content')
-            </main>
-        </div>
+            </div>
+        </main>
+
+        <footer>
+            @include('layout.components.footer')
+        </footer>
 
         <!-- Scripts -->
         <script src="{{ asset('lib/js/jquery-3.3.1.min.js') }}"></script>
