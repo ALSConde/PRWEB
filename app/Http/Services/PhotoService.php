@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Models\User;
 use Illuminate\Support\Facades\File;
 
 class PhotoService
@@ -30,6 +31,7 @@ class PhotoService
 
     public function removeImage($photoName)
     {
+
         $photoPath = public_path('storage/images/' . $photoName); // obter o caminho completo do arquivo
 
         if (file_exists($photoPath)) {

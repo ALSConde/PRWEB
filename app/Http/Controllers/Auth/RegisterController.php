@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+use App\Http\Services\UserService;
+use App\Http\Services\UserServiceInterface;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -36,7 +37,7 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(private UserServiceInterface $service)
     {
         $this->middleware('guest');
     }
@@ -52,7 +53,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
         ]);
     }
 
@@ -64,10 +65,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return $this->service->create($data)['registro'];
     }
+
 }

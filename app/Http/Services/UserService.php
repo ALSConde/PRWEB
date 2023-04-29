@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserService implements UserServiceInterface
 {
@@ -32,6 +33,8 @@ class UserService implements UserServiceInterface
     //Salvar usuarios
     public function create($registro)
     {
+        $registro['password'] = Hash::make($registro['password']); //criptografa a senha
+
         // $data = $registro;
         $data = $this->repository->create($registro); //salva no banco de dados
 

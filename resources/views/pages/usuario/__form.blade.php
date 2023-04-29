@@ -55,7 +55,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                    <label for="password" class="control-label">Nova Senha:</label>
+                    <label for="password" class="control-label">Senha:</label>
                     <input type="password" id="password" name="password"
                         class="form-control @error('password') is-invalid @enderror" value="" />
                     @error('password')

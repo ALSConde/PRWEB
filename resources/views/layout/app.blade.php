@@ -17,13 +17,13 @@
 
 @guest
 
-    <body class="app sidebar-mini">
+    <body class="app sidebar-mini rtl">
         <header>
             @include('layout.components.header')
         </header>
 
         <main>
-            <div class="app-content">
+            <div class="app-content" style="margin-left: 0px">
                 @yield('content')
             </div>
         </main>

@@ -23,6 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if (auth()->user())
+            return redirect()->route('usuarios.index');
+        else {
+            return view('home');
+        }
     }
 }
