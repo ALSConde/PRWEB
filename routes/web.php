@@ -45,10 +45,9 @@ Route::prefix('autor')->group(function () {
     Route::get('/export/{extensao}', [AutorController::class, 'export'])->name('autor.export');
 });
 
-
 Route::post('/photo/upload', [PhotoController::class, 'uploadImage'])->name('uploadImage');
 Route::post('/photo/cancel', [PhotoController::class, 'removeImage'])->name('removeImage');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
