@@ -46,7 +46,7 @@
             let __tokenCSRF = '{{ csrf_token() }}';
             let photoName = $('#photo').attr('src').split('/').pop(); // obter o nome do arquivo da imagem
 
-            if (photoName != '{{ $registro->id }}' && photoName != 'user.svg' && photoName != '') {
+            if (photoName != '{{ $registro->id }}' && photoName != 'user.svg') {
                 let dados = JSON.stringify({
                     "photo": photoName,
                 });
@@ -58,7 +58,7 @@
                 });
 
                 $.ajax({
-                    url: '{{ url('/photo/cancel/', $registro->id) }}',
+                    url: '{{ url('/photo/cancel/') }}',
                     type: 'POST',
                     data: dados,
                     success: function(data) {

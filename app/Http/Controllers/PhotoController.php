@@ -23,10 +23,6 @@ class PhotoController extends Controller
         }
     }
 
-    public function saveImage($image){
-       return $this->photoService->saveImage($image);
-    }
-
     public function removeImage(Request $request, $id)
     {
         $data = $request->json()->all();
