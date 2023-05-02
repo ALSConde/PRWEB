@@ -7,15 +7,12 @@ use App\Models\Autor;
 use App\Http\Services\AutorServiceInterface;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\PDF;
 
 class AutorController extends Controller
 {
-
-    private $service;
-
-    public function __construct(AutorServiceInterface $service)
+    public function __construct(private AutorServiceInterface $service, private PDF $pdfService)
     {
-        $this->service = $service;
     }
 
     public function index(Request $request)
@@ -79,11 +76,19 @@ class AutorController extends Controller
 
     public function export($extensao)
     {
-        //
+        //Exporta para Excel, CSV e PDF
         if (in_array($extensao, ['xlsx', 'csv', 'pdf'])) {
             return Excel::download(new AutorsExport, 'autores.' . $extensao);
         }
 
         return redirect()->route('autor.index')->with('error', 'Extensão não permitida!');
+    }
+
+    public function exportar()
+    {
+        $registros = Autor::all();
+        $pdf = $this->pdfService->loadView('pages.autor.pdf', ['registros' => $registros]);
+        $pdf->setPaper('a4', 'landscape');
+        return $pdf->stream('autores.pdf');
     }
 }

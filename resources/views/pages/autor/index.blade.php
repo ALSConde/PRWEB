@@ -81,11 +81,14 @@
                     <a class="btn btn-success btn-lg" href="{{ route('autor.create') }}">
                         <i class="fa fa-plus-circle"> Incluir novos Autores</i>
                     </a>
-                    <a class="btn btn-success btn-lg" href="{{ route('autor.export',['extensao' => 'xlsx']) }}">
+                    <a class="btn btn-success btn-lg" href="{{ route('autor.export', ['extensao' => 'xlsx']) }}">
                         <i class="fa fa-plus-circle"> XLSX</i>
                     </a>
-                    <a class="btn btn-success btn-lg" href="{{ route('autor.export',['extensao' => 'csv']) }}">
+                    <a class="btn btn-success btn-lg" href="{{ route('autor.export', ['extensao' => 'csv']) }}">
                         <i class="fa fa-plus-circle"> CSV</i>
+                    </a>
+                    <a class="btn btn-success btn-lg" href="{{ route('autor.exportar') }}" target="_blank">
+                        <i class="fa fa-plus-circle"> PDF</i>
                     </a>
                 </div>
             </div>
