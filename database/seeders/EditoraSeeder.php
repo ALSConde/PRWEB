@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Editora;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,6 @@ class EditoraSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Editora::factory(10)->create();
     }
 }

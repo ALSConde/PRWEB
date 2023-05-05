@@ -77,18 +77,37 @@ class AutorController extends Controller
     public function export($extensao)
     {
         //Exporta para Excel, CSV e PDF
-        if (in_array($extensao, ['xlsx', 'csv', 'pdf'])) {
+        if (in_array($extensao, ['xlsx', 'csv'])) {
             return Excel::download(new AutorsExport, 'autores.' . $extensao);
         }
 
         return redirect()->route('autor.index')->with('error', 'Extensão não permitida!');
     }
 
+    //Exporta para PDF
     public function exportar()
     {
         $registros = Autor::all();
         $pdf = $this->pdfService->loadView('pages.autor.pdf', ['registros' => $registros]);
         $pdf->setPaper('a4', 'landscape');
         return $pdf->stream('autores.pdf');
+    }
+
+    //Retorna os livros de um autor
+    public function livrosPorAutor($id)
+    {
+        $registros = $this->service->livrosPorAutor($id);
+
+        if (count($registros) == 0) {
+            return redirect()->route('autor.index')->with('fail', 'Autor selecionado não possui livros cadastrados!');
+        }
+
+        $data = $this->service->show($id);
+        $registro = $data['registro'];
+
+        return view('pages.autor.livros', [
+            'registros' => $registros,
+            'nome' => $registro->nome,
+        ]);
     }
 }

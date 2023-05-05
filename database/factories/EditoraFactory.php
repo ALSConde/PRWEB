@@ -17,7 +17,7 @@ class EditoraFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nome' => fake()->name(),
         ];
     }
 }

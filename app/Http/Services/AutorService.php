@@ -94,15 +94,23 @@ class AutorService implements AutorServiceInterface
     {
         //
         $data = $this->repo->find($id);
-        if(!$data){
+        if (!$data) {
             return (['fail' => 'Registro não localizado']);
         }
         $data->delete();
         return (['success' => 'Registro excluido com sucesso']);
     }
 
-    public function buscar($id)
+    public function livrosPorAutor($id)
     {
-        //
+        $autor = $this->repo->find($id);
+
+        if (!$autor) {
+            return (['fail' => 'Autor não localizado']);
+        }
+
+        $livros = $autor->livros()->paginate(5);
+
+        return $livros;
     }
 }

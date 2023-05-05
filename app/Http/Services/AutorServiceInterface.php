@@ -13,5 +13,5 @@ interface AutorServiceInterface
     public function edit($id);
     public function update(Request $request, $id);
     public function destroy($id);
-    public function buscar($id);
+    public function livrosPorAutor($id);
 }

@@ -52,7 +52,11 @@
                             @forelse  ($registros as $registro)
                                 <tr>
                                     <td style="text-align: center">{{ $registro->id }}</td>
-                                    <td style="text-align: center">{{ $registro->nome }}</td>
+                                    <td style="text-align: center">
+                                        <a href="{{ route('autor.livros', $registro->id) }}">
+                                            {{ $registro->nome }}
+                                        </a>
+                                    </td>
                                     <td style="text-align: center">{{ $registro->apelido }}</td>
                                     <td style="text-align: center">{{ $registro->telefone }}</td>
                                     <td style="text-align: center">{{ $registro->email }}</td>
