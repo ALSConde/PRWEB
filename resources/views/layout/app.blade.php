@@ -16,6 +16,7 @@
 </head>
 
 @guest
+    {{-- {{ dd(Auth::user()) }} --}}
 
     <body class="app sidebar-mini rtl">
         <header>

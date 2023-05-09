@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->middleware('web');
 Route::get('/home', [HomeController::class, 'index']);
 
 Route::prefix('usuario')->group(function () {
@@ -31,7 +31,7 @@ Route::prefix('usuario')->group(function () {
     Route::post('/alterar/{id}', [UsuarioController::class, 'update'])->name('usuarios.alterar');
     Route::get('/excluir/{id}', [UsuarioController::class, 'excluir']);
     Route::post('/delete/{id}', [UsuarioController::class, 'delete'])->name('usuarios.delete');
-});
+})->middleware('web');
 
 Route::prefix('autor')->group(function () {
     Route::any('/', [AutorController::class, 'index'])->name('autor.index');
@@ -45,11 +45,11 @@ Route::prefix('autor')->group(function () {
     Route::get('/livros/{id}', [AutorController::class, 'livrosPorAutor'])->name('autor.livros');
     Route::get('/export/{extensao}', [AutorController::class, 'export'])->name('autor.export');
     Route::get('/exportar', [AutorController::class, 'exportar'])->name('autor.exportar');
-});
+})->middleware('web');
 
 Route::post('/photo/upload', [PhotoController::class, 'uploadImage'])->name('uploadImage');
 Route::post('/photo/cancel', [PhotoController::class, 'removeImage'])->name('removeImage');
 
-Auth::routes(['verify' => true]);
+Auth::routes(['verify' => true],);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
