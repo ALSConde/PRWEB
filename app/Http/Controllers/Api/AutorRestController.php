@@ -99,7 +99,7 @@ class AutorRestController extends Controller
     public function show($id)
     {
         try {
-            $data = $this->service->buscar($id);
+            $data = $this->service->show($id);
 
             if (!empty($data['fail'])) {
                 return response()->json(['status' => 'ok', 'fail' => 'registro não encontrado'], 404);

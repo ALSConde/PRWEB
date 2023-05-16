@@ -6,7 +6,7 @@
         <div class="app-sidebar__user"><img class="app-sidebar__user-avatar"
                 src="{{ isset($user['photo']) ? $user->photo : asset('img/user.svg') }}" alt="User Image">
             <div>
-                <p class="app-sidebar__user-name">{{ isset($user['name']) ? $user->name : 'Guest' }}</p>
+                <p class="app-sidebar__user-name">{{ isset(Auth::user()->name) ? Auth::user()->name : 'Guest' }}</p>
                 <p class="app-sidebar__user-designation">Frontend Developer</p>
             </div>
         </div>

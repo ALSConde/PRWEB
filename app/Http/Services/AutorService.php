@@ -106,13 +106,13 @@ class AutorService implements AutorServiceInterface
     {
         $autor = $this->repo->find($id);
 
-        // if (!$autor) {
-        //     return (['fail' => 'Autor não localizado']);
-        // }
+        if (!$autor) {
+            return (['fail' => 'Autor não localizado']);
+        }
 
-        // $livros = Livro::with(['autor','editora'])->paginate(5);
+        // $livros = $autor->livros()->paginate(5);
 
-        $livros = $autor->livros()->with(['autor', 'editora'])->paginate(5);
+        $livros = $autor->livros()->with('editora')->paginate(5);
 
         return $livros;
     }

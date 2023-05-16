@@ -8,12 +8,6 @@ use Illuminate\Http\Request;
 
 class AuthRestController extends Controller
 {
-
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api', ['except' => ['login']]);
-    // }
-
     public function login(Request $request)
     {
         $credentials = $request->all(['email', 'password']);
@@ -35,12 +29,15 @@ class AuthRestController extends Controller
 
     public function refresh()
     {
+        // $token = auth('api')->refresh();
         return $this->respondUserWithToken(auth('api')->refresh());
     }
 
     public function me()
     {
-        return response()->json(auth('api')->user());
+        return response()->json([
+            'user' => auth('api')->user(),
+        ]);
     }
 
     protected function respondUserWithToken($token)

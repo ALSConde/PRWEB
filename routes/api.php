@@ -17,34 +17,43 @@ use App\Http\Controllers\Api\UsuarioRestController;
 |
 */
 
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'auth'
-], function ($router) {
-    Route::post('login', [AuthRestController::class, 'login']);
+// Route::group([
+//     'middleware' => 'api',
+//     'prefix' => 'auth'
+// ], function ($router) {
+//     Route::post('login', [AuthRestController::class, 'login']);
+//     Route::post('logout', [AuthRestController::class, 'logout']);
+//     Route::post('refresh', [AuthRestController::class, 'refresh']);
+//     Route::get('me', [AuthRestController::class, 'me']);
+// });
+
+Route::post('login', [AuthRestController::class, 'login']);
+
+Route::prefix('access')->group(function () {
     Route::post('logout', [AuthRestController::class, 'logout']);
     Route::post('refresh', [AuthRestController::class, 'refresh']);
-    Route::post('me', [AuthRestController::class, 'me']);
+    Route::get('me', [AuthRestController::class, 'me']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('usuario')->group(function () {
-    Route::any('/listar', [UsuarioRestController::class, 'index']);
-    Route::post('/incluir', [UsuarioRestController::class, 'create']);
-    Route::put('/alterar/{id}', [UsuarioRestController::class, 'update']);
-    Route::delete('/delete/{id}', [UsuarioRestController::class, 'delete']);
-    Route::get('/show/{id}', [UsuarioRestController::class, 'show']);
-})->middleware('jwt.auth');
+Route::prefix('v1')->group(function () {
+    Route::prefix('usuario')->group(function () {
+        Route::any('/listar', [UsuarioRestController::class, 'index']);
+        Route::post('/incluir', [UsuarioRestController::class, 'create']);
+        Route::put('/alterar/{id}', [UsuarioRestController::class, 'update']);
+        Route::delete('/delete/{id}', [UsuarioRestController::class, 'delete']);
+        Route::get('/show/{id}', [UsuarioRestController::class, 'show']);
+    });
 
-Route::prefix('autor')->group(function () {
-    Route::any('/listar', [AutorRestController::class, 'index']);
-    Route::any('/index', [AutorRestController::class, 'index']);
-    Route::post('/create', [AutorRestController::class, 'create']);
-    Route::post('/store', [AutorRestController::class, 'store']);
-    Route::put('/update/{id}', [AutorRestController::class, 'update']);
-    Route::delete('/delete/{id}', [AutorRestController::class, 'delete']);
-    Route::get('/show/{id}', [AutorRestController::class, 'show']);
+    Route::prefix('autor')->group(function () {
+        Route::any('/listar', [AutorRestController::class, 'index']);
+        Route::any('/index', [AutorRestController::class, 'index']);
+        Route::post('/store', [AutorRestController::class, 'store']);
+        Route::put('/update/{id}', [AutorRestController::class, 'update']);
+        Route::delete('/delete/{id}', [AutorRestController::class, 'delete']);
+        Route::get('/show/{id}', [AutorRestController::class, 'show']);
+    });
 })->middleware('jwt.auth');
