@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
+use App\Models\Action;
 use App\Models\User;
-use App\Models\permissao;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PermissaoPolicy
+class ActionPolicy
 {
     use HandlesAuthorization;
 
@@ -19,16 +19,17 @@ class PermissaoPolicy
     public function viewAny(User $user)
     {
         //
+        return true;
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\permissao  $permissao
+     * @param  \App\Models\Action  $action
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, permissao $permissao)
+    public function view(User $user, Action $action)
     {
         //
     }
@@ -48,10 +49,10 @@ class PermissaoPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\permissao  $permissao
+     * @param  \App\Models\Action  $action
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, permissao $permissao)
+    public function update(User $user, Action $action)
     {
         //
     }
@@ -60,10 +61,10 @@ class PermissaoPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\permissao  $permissao
+     * @param  \App\Models\Action  $action
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, permissao $permissao)
+    public function delete(User $user, Action $action)
     {
         //
     }
@@ -72,10 +73,10 @@ class PermissaoPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\permissao  $permissao
+     * @param  \App\Models\Action  $action
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, permissao $permissao)
+    public function restore(User $user, Action $action)
     {
         //
     }
@@ -84,10 +85,10 @@ class PermissaoPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\permissao  $permissao
+     * @param  \App\Models\Action  $action
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, permissao $permissao)
+    public function forceDelete(User $user, Action $action)
     {
         //
     }

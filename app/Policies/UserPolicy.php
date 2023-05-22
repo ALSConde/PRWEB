@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Livro;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class LivroPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -18,7 +17,7 @@ class LivroPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        // return the permission to view the list of users
         return true;
     }
 
@@ -26,10 +25,10 @@ class LivroPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Livro  $livro
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Livro $livro)
+    public function view(User $user, User $model)
     {
         //
     }
@@ -49,10 +48,10 @@ class LivroPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Livro  $livro
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Livro $livro)
+    public function update(User $user, User $model)
     {
         //
     }
@@ -61,10 +60,10 @@ class LivroPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Livro  $livro
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Livro $livro)
+    public function delete(User $user, User $model)
     {
         //
     }
@@ -73,10 +72,10 @@ class LivroPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Livro  $livro
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Livro $livro)
+    public function restore(User $user, User $model)
     {
         //
     }
@@ -85,10 +84,10 @@ class LivroPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Livro  $livro
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Livro $livro)
+    public function forceDelete(User $user, User $model)
     {
         //
     }

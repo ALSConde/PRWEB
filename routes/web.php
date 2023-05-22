@@ -45,7 +45,7 @@ Route::prefix('autor')->group(function () {
     Route::get('/livros/{id}', [AutorController::class, 'livrosPorAutor'])->name('autor.livros');
     Route::get('/export/{extensao}', [AutorController::class, 'export'])->name('autor.export');
     Route::get('/exportar', [AutorController::class, 'exportar'])->name('autor.exportar');
-})->middleware('web');
+})->middleware('web')->middleware('auth');
 
 Route::post('/photo/upload', [PhotoController::class, 'uploadImage'])->name('uploadImage');
 Route::post('/photo/cancel', [PhotoController::class, 'removeImage'])->name('removeImage');

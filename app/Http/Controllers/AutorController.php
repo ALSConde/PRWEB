@@ -13,11 +13,14 @@ class AutorController extends Controller
 {
     public function __construct(private AutorServiceInterface $service, private PDF $pdfService)
     {
+        $this->middleware('role:admin|editor|user|guest');
+        // $this->middleware('auth');
     }
 
     public function index(Request $request)
     {
-        // dd($filters);
+        // dd($request->user()->can('viewAny'));
+        $this->authorize('viewAny');
         $tamPagina = [5, 10, 15, 20, 30, 40];
         $search = $request->pesquisa;
         $item = $request->pagina ?? 5;

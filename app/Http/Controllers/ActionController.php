@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
-use Illuminate\Http\Request;
+use App\Models\Action;
+use App\Http\Requests\StoreActionRequest;
+use App\Http\Requests\UpdateActionRequest;
 
-class RoleController extends Controller
+class ActionController extends Controller
 {
-    private $roleRepo = Role::class;
-    public function __construct()
-    {
-        $this->middleware('role:admin');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +16,6 @@ class RoleController extends Controller
     public function index()
     {
         //
-        return $this->roleRepo::all();
     }
 
     /**
@@ -32,28 +26,26 @@ class RoleController extends Controller
     public function create()
     {
         //
-
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreActionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreActionRequest $request)
     {
         //
-        return $this->roleRepo::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Action  $action
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(Action $action)
     {
         //
     }
@@ -61,10 +53,10 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Action  $action
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit(Action $action)
     {
         //
     }
@@ -72,26 +64,23 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
+     * @param  \App\Http\Requests\UpdateActionRequest  $request
+     * @param  \App\Models\Action  $action
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(UpdateActionRequest $request, Action $action)
     {
         //
-        $dataUpdate = $this->roleRepo::find($role->id);
-        return $dataUpdate->update($request->all());;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Action  $action
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(Action $action)
     {
         //
-        return $this->roleRepo::destroy($role->id);
     }
 }
