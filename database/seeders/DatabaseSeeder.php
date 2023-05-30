@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
             // UsuarioSeeder::class,
             AutorSeeder::class,
             EditoraSeeder::class,
+            RoleSeeder::class,
+            PermissionSeeder::class,
+            ActionSeeder::class,
         ]);
     }
 }

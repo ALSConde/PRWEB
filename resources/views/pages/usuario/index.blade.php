@@ -45,6 +45,7 @@
                             <th style="font-weight: bold; text-align: center">Nome</th>
                             <th style="font-weight: bold; text-align: center">E-mail</th>
                             <th style="font-weight: bold; text-align: center">Ações</th>
+                            <th style="font-weight: bold; text-align: center">Roles</th>
                         </tr>
                         <tbody>
                             {{-- {{dd($registros)}} --}}
@@ -60,6 +61,11 @@
                                         <a class="btn btn-danger btn-sm" id="excluir"
                                             href="{{ url('/usuario/excluir', $registro->id) }}"><i
                                                 class="fa fa-trash"></i></a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-info btn-sm"
+                                            href="{{ url('/usuario/role', $registro->id) }}"><i
+                                                class="fa fa-pencil"></i></a>
                                     </td>
                                 </tr>
                             @empty

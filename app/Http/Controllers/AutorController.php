@@ -13,7 +13,7 @@ class AutorController extends Controller
 {
     public function __construct(private AutorServiceInterface $service, private PDF $pdfService)
     {
-        $this->middleware('role:admin|editor|user|guest');
+        // $this->middleware('role:admin|editor|user|guest');
         // $this->middleware('auth');
     }
 

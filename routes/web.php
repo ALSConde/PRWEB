@@ -31,7 +31,16 @@ Route::prefix('usuario')->group(function () {
     Route::post('/alterar/{id}', [UsuarioController::class, 'update'])->name('usuarios.alterar');
     Route::get('/excluir/{id}', [UsuarioController::class, 'excluir']);
     Route::post('/delete/{id}', [UsuarioController::class, 'delete'])->name('usuarios.delete');
-})->middleware('web');
+});
+
+Route::prefix('role')->group(function () {
+    Route::post('/{id}', [UsuarioController::class, 'role'])->name('usuario.role');
+    Route::post('salvar/', [UsuarioController::class, 'saveRole'])->name('usuario.role.salvar');
+    Route::post('excluir/', [UsuarioController::class, 'destroyRole'])->name('usuario.role.excluir');
+    Route::post('permissao/salvar', [RolePermissionController::class, 'salvarRolePermissao'])->name('role.permissao.salvar');
+    Route::post('permissao/excluir', [RolePermissionController::class, 'excluirRolePermissao'])->name('role.permissao.excluir');
+    
+});
 
 Route::prefix('autor')->group(function () {
     Route::any('/', [AutorController::class, 'index'])->name('autor.index');
@@ -45,11 +54,11 @@ Route::prefix('autor')->group(function () {
     Route::get('/livros/{id}', [AutorController::class, 'livrosPorAutor'])->name('autor.livros');
     Route::get('/export/{extensao}', [AutorController::class, 'export'])->name('autor.export');
     Route::get('/exportar', [AutorController::class, 'exportar'])->name('autor.exportar');
-})->middleware('web')->middleware('auth');
+});
 
 Route::post('/photo/upload', [PhotoController::class, 'uploadImage'])->name('uploadImage');
 Route::post('/photo/cancel', [PhotoController::class, 'removeImage'])->name('removeImage');
 
-Auth::routes(['verify' => true],);
+Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

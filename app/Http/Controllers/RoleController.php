@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-    private $roleRepo = Role::class;
-    public function __construct()
+    private $roleRepo;
+
+    public function __construct(Role $role)
     {
-        $this->middleware('role:admin');
+        $this->roleRepo = $role;
     }
 
     /**
@@ -93,5 +95,37 @@ class RoleController extends Controller
     {
         //
         return $this->roleRepo::destroy($role->id);
+    }
+
+    public function saveRole(Request $request)
+    {
+        $user_id = $request->input('user_id');
+
+        $user = User::find($user_id);
+
+        $registros = $request['registros'];
+
+        if ($registros != null) {
+            for ($i = 0; $i < sizeof($registros); $i++) {
+                $role = $this->roleRepo->find($registros[$i]);
+
+                if (!$user->existeRole($role->id)) {
+                    $user->roles()->attach($role);
+                }
+            }
+            return redirect()->back()->with('success', 'Roles adicionadas com sucesso!');
+        }
+
+        return redirect()->back()->with('fail', 'Nenhuma role foi selecionada!');
+    }
+
+    public function destroyRole($user_id, $role_id)
+    {
+        $user = User::find($user_id);
+        $role = Role::find($role_id);
+
+        $user->roles()->detach($role);
+
+        return redirect()->back()->with('success', 'Role removida com sucesso!');
     }
 }

@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\permissao;
 use App\Http\Requests\StorepermissaoRequest;
 use App\Http\Requests\UpdatepermissaoRequest;
+use App\Models\Permissions;
 
-class PermissaoController extends Controller
+class PermissionController extends Controller
 {
+    // Private vars
+    private $permissaoRepo;
+
+    // constructor
+    public function __construct(Permissions $permissao)
+    {
+        $this->permissaoRepo = $permissao;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +46,8 @@ class PermissaoController extends Controller
      */
     public function store(StorepermissaoRequest $request)
     {
-        //
+        //store method
+        return $this->permissaoRepo::create($request->all());
     }
 
     /**
@@ -45,7 +56,7 @@ class PermissaoController extends Controller
      * @param  \App\Models\permissao  $permissao
      * @return \Illuminate\Http\Response
      */
-    public function show(permissao $permissao)
+    public function show(Permissions $permissao)
     {
         //
     }
@@ -56,7 +67,7 @@ class PermissaoController extends Controller
      * @param  \App\Models\permissao  $permissao
      * @return \Illuminate\Http\Response
      */
-    public function edit(permissao $permissao)
+    public function edit(Permissions $permissao)
     {
         //
     }
@@ -68,9 +79,10 @@ class PermissaoController extends Controller
      * @param  \App\Models\permissao  $permissao
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatepermissaoRequest $request, permissao $permissao)
+    public function update(UpdatepermissaoRequest $request, Permissions $permissao)
     {
-        //
+        //update method
+        return $permissao->update($request->all());
     }
 
     /**
@@ -79,8 +91,9 @@ class PermissaoController extends Controller
      * @param  \App\Models\permissao  $permissao
      * @return \Illuminate\Http\Response
      */
-    public function destroy(permissao $permissao)
+    public function destroy(Permissions $permissao)
     {
-        //
+        //destroy method
+        return $permissao->delete();
     }
 }

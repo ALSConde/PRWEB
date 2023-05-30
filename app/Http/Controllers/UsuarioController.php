@@ -6,6 +6,8 @@ use App\Http\Requests\UsuarioModel;
 use App\Http\Services\UserServiceInterface;
 use App\Http\Services\PhotoService;
 use Illuminate\Http\Request;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class UsuarioController extends Controller
@@ -124,6 +126,17 @@ class UsuarioController extends Controller
 
         return view('pages.usuario.show', [
             'registro' => $data['registro'],
+        ]);
+    }
+
+    public function atrRole($id)
+    {
+        $usuario = User::find($id);
+        $registros = Role::paginate(5);
+
+        return view('pages.usuario.role',[
+            'registros' => $registros,
+            'usuario' => $usuario,
         ]);
     }
 }
