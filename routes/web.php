@@ -31,15 +31,18 @@ Route::prefix('usuario')->group(function () {
     Route::post('/alterar/{id}', [UsuarioController::class, 'update'])->name('usuarios.alterar');
     Route::get('/excluir/{id}', [UsuarioController::class, 'excluir']);
     Route::post('/delete/{id}', [UsuarioController::class, 'delete'])->name('usuarios.delete');
+
+    Route::post('role/{id}', [UsuarioController::class, 'role'])->name('usuario.role');
+    Route::post('role/salvar', [UsuarioController::class, 'saveRole'])->name('usuario.role.salvar');
+    Route::post('role/excluir', [UsuarioController::class, 'destroyRole'])->name('usuario.role.excluir');
 });
 
 Route::prefix('role')->group(function () {
-    Route::post('/{id}', [UsuarioController::class, 'role'])->name('usuario.role');
-    Route::post('salvar/', [UsuarioController::class, 'saveRole'])->name('usuario.role.salvar');
-    Route::post('excluir/', [UsuarioController::class, 'destroyRole'])->name('usuario.role.excluir');
-    Route::post('permissao/salvar', [RolePermissionController::class, 'salvarRolePermissao'])->name('role.permissao.salvar');
-    Route::post('permissao/excluir', [RolePermissionController::class, 'excluirRolePermissao'])->name('role.permissao.excluir');
-    
+
+    Route::post('/permissao/salvar', [RolePermissionController::class, 'salvarRolePermissao'])->name('role.permissao.salvar');
+    Route::post('/permissao/excluir/{role_id/permissao_id/action_id}', [RolePermissionController::class, 'excluirRolePermissao'])->name('role.permissao.excluir');
+
+    Route::get('/permissao/{id}', [RolePermissionController::class, 'showPermissoes'])->name('role.index');
 });
 
 Route::prefix('autor')->group(function () {
