@@ -9,13 +9,14 @@ use App\Models\Role;
 use App\Models\Permissao;
 use App\Models\Action;
 
+
 class RolePermissao extends Model
 {
 
     use Notifiable;
-    // use Sortable;
+    //use Sortable;
 
-    protected $table = 'role_permissao';
+    protected $table='permissao_actions';
 
     public $sortable = [
         'role_id',
@@ -24,7 +25,7 @@ class RolePermissao extends Model
     ];
 
     protected $fillable = [
-        'role_id',
+    	'role_id',
         'permissao_id',
         'action_id',
     ];
@@ -34,24 +35,24 @@ class RolePermissao extends Model
         'updated_at',
     ];
 
-
-    public function roles()
-    {
+    
+    public function roles(){
         return $this->belongsTo(Role::class, 'role_id');
     }
 
-    public function permissoes()
-    {
+    public function permissoes(){
         return $this->belongsTo(Permissao::class, 'permissao_id');
     }
 
-    public function actions()
-    {
+    public function actions(){
         return $this->belongsTo(Action::class, 'action_id');
     }
 
-    public function hasRolePermissaoAction($role_id, $permissao_id, $action_id)
-    {
-        return (bool) RolePermissao::where('role_id', $role_id)->where('permissao_id', $permissao_id)->where('action_id', $action_id)->first();
+    public function hasRolePermissaoAction($role_id, $permissao_id, $action_id){
+        return ( boolean ) RolePermissao::where('role_id', $role_id)->
+                                          where('permissao_id',$permissao_id)->
+                                          where('action_id', $action_id)->first();
     }
+
+
 }

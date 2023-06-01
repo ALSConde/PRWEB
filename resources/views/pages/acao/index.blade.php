@@ -5,7 +5,7 @@
     <div class="container">
         <div class="app-title">
             <h1>
-                <i class="fa fa-edit">Lista de Papéis</i>
+                <i class="fa fa-edit">Lista de Ação para Permissões</i>
             </h1>
             <ul class="app-breadcrumb breadcrumb">
                 <li class="breadcrumb-item"><i class="fa fa-search fa-lg"></i></li>
@@ -13,12 +13,12 @@
             </ul>
         </div>
         <div class="container"> 
-            @include('layout.alert')
+            @include('layouts.alert')
         </div>
         <div class="container">
             <div class="tile">
                 <div class="tile-body">
-                    <form class="form form-inline" action="{{ url('/role/buscar') }}" method="POST">
+                    <form class="form form-inline" action="{{ url('/acao/buscar') }}" method="POST">
                         @csrf
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -43,12 +43,10 @@
                         <table class="table table-stripped table-bordered table-hover cf">
                             <thead class="cf">
                                 <tr>
-                                    <th style="font-weight: bold; text-align: center;">id</th>
-                                    <th style="font-weight: bold; text-align: center;">nome</th>
+                                    <th style="font-weight: bold; text-align: center;">@sortablelink('id')</th>
+                                    <th style="font-weight: bold; text-align: center;">@sortablelink('nome')</th>
                                     <th style="font-weight: bold; text-align: center;">Descrição</th>
                                     <th style="font-weight: bold; text-align: center;">Ações</th>
-                                    <th style="font-weight: bold; text-align: center;">Permissões</th>
-                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,22 +58,16 @@
                                         <td data-title="Descrição" style="text-align: center">{{ $registro->descricao }}</td>
                                         <td data-title="Ação" style="text-align: center">
                                             <a class="btn btn-info btn-sm"
-                                                href="{{ url('/role/alterar', $registro->id) }}"><i
+                                                href="{{ url('/acao/alterar', $registro->id) }}"><i
                                                     class="fa fa-pencil"></i>
                                             </a>
                                             <a class="btn btn-danger btn-sm"
-                                                href="{{ url('/role/deletar', $registro->id) }}"><i
+                                                href="{{ url('/acao/deletar', $registro->id) }}"><i
                                                     class="fa fa-trash"></i>
                                             </a>
                                             <a class="btn btn-info btn-sm"
-                                                href="{{ url('/role/consultar', $registro->id) }}"><i
+                                                href="{{ url('/acao/consultar', $registro->id) }}"><i
                                                     class="fa fa-address-book"></i>
-                                            </a>
-                                        </td>
-                                        <td data-title="Permissões" style="text-align: center">
-                                            <a class="btn btn-warning btn-sm"
-                                                href="{{ url('/role/permissao', $registro->id) }}"><i
-                                                    class="fa fa-pencil"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -88,7 +80,7 @@
                         @else
                             {{ $registros->links() }}
                         @endif
-                        <a class="btn btn-success btn-lg" href="{{ url('/role/incluir') }}">Inclui Novo Papel
+                        <a class="btn btn-success btn-lg" href="{{ url('/acao/incluir') }}">Inclui Nova Ação Para Permissão
                             <i class="fa fa-plus-circle"></i>
                         </a>
                     </div>

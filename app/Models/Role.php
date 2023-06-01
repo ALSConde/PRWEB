@@ -2,20 +2,36 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+//use Kyslik\ColumnSortable\Sortable;
+use App\User;
+use App\Models\RolePermissao;
 
 class Role extends Model
 {
-    use HasFactory;
+    use Notifiable;
+    //use Sortable;
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'user_roles');
+    protected $table='roles';
+
+    // public $sortable = [ 
+    //     'id', 
+    //     'nome', 
+    // ];
+   
+    protected $fillable = [
+    	'nome',
+    	'descricao'
+    ];
+
+    public function users(){
+        return $this->belongsToMany(User::class,'user_role')->withTimestamps();
     }
 
-    public function permissions()
-    {
-        return $this->belongsToMany(Permissions::class,'permissions');
+    public function role_permissao(){
+        return $this->hasMany(RolePermissao::class,'role_id');
     }
+
+
 }
